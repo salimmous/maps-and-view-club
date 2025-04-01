@@ -1,0 +1,755 @@
+/**
+ * City Club Network - Modal CSS
+ *
+ * @package    City_Club_Network
+ */
+
+/* Modal Overlay */
+.ccn-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.ccn-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Modal Container */
+.ccn-modal {
+    background-color: #fff;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 900px;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.ccn-modal-overlay.active .ccn-modal {
+    transform: translateY(0);
+}
+
+/* Modal Header */
+.ccn-modal-header {
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+}
+
+.ccn-modal-header-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ccn-modal-header-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    color: #fff;
+}
+
+.ccn-modal-premium-badge {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: #ff6b00;
+    color: #fff;
+    padding: 5px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.ccn-modal-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 0 5px 0;
+}
+
+.ccn-modal-address {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    margin-top: 8px;
+}
+
+.ccn-modal-address i {
+    margin-right: 8px;
+    width: 16px;
+    height: 16px;
+    background-image: url('../images/location-icon.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: inline-block;
+    filter: brightness(0) invert(1);
+}
+
+/* Close Button */
+.ccn-modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 32px;
+    height: 32px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: background-color 0.2s ease;
+}
+
+.ccn-modal-close:hover {
+    background-color: #fff;
+}
+
+.ccn-modal-close::before,
+.ccn-modal-close::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 2px;
+    background-color: #333;
+}
+
+.ccn-modal-close::before {
+    transform: rotate(45deg);
+}
+
+.ccn-modal-close::after {
+    transform: rotate(-45deg);
+}
+
+/* Modal Tabs */
+.ccn-modal-tabs {
+    display: flex;
+    border-bottom: 1px solid #e2e8f0;
+    background-color: #f8fafc;
+}
+
+.ccn-modal-tab {
+    padding: 15px 25px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #4a5568;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.ccn-modal-tab:hover {
+    color: #3182ce;
+}
+
+.ccn-modal-tab.active {
+    color: #3182ce;
+    border-bottom-color: #3182ce;
+}
+
+/* Modal Content */
+.ccn-modal-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0;
+}
+
+.ccn-modal-tab-content {
+    display: none;
+    padding: 25px;
+}
+
+.ccn-modal-tab-content.active {
+    display: block;
+}
+
+/* Overview Tab */
+.ccn-club-info {
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.ccn-club-info-section {
+    flex: 1;
+    padding: 0 15px;
+}
+
+.ccn-club-info-section:first-child {
+    padding-left: 0;
+}
+
+.ccn-club-info-section:last-child {
+    padding-right: 0;
+}
+
+.ccn-club-info-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #2d3748;
+    display: flex;
+    align-items: center;
+}
+
+.ccn-club-info-title i {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+
+.ccn-hours-icon {
+    background-image: url('../images/clock-icon.svg');
+}
+
+.ccn-rating-title i {
+    background-image: url('../images/star-filled.svg');
+}
+
+.ccn-contact-title i {
+    background-image: url('../images/contact-icon.svg'); /* Ensure this icon exists */
+}
+
+.ccn-club-hours-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ccn-club-hours-list li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.ccn-club-hours-day {
+    font-weight: 600;
+    color: #4a5568;
+}
+
+.ccn-club-hours-time {
+    color: #718096;
+}
+
+.ccn-club-rating-display {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.ccn-club-rating-stars {
+    display: flex;
+    margin-right: 10px;
+}
+
+.ccn-club-rating-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: #2d3748;
+}
+
+.ccn-club-reviews-count {
+    font-size: 14px;
+    color: #718096;
+    margin-left: 5px;
+}
+
+.ccn-club-contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ccn-club-contact-list li {
+    margin-bottom: 12px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.ccn-club-contact-list li i {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+
+.ccn-club-contact-phone i {
+    background-image: url('../images/phone-icon.svg'); /* Ensure this icon exists */
+}
+
+.ccn-club-contact-email i {
+    background-image: url('../images/email-icon.svg'); /* Ensure this icon exists */
+}
+
+.ccn-club-contact-website i {
+    background-image: url('../images/website-icon.svg'); /* Ensure this icon exists */
+}
+
+.ccn-club-description {
+    margin-top: 20px;
+    line-height: 1.6;
+    color: #4a5568;
+}
+
+/* Facilities Tab */
+.ccn-facilities-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.ccn-facility-item {
+    background-color: #f8fafc;
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #e2e8f0;
+}
+
+.ccn-facility-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 15px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.ccn-facility-details {
+    flex: 1;
+}
+
+.ccn-facility-name {
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #2d3748;
+}
+
+.ccn-facility-description {
+    font-size: 14px;
+    color: #718096;
+}
+
+/* Classes Tab */
+.ccn-classes-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px; /* Add margin below class list */
+}
+
+.ccn-class-item {
+    background-color: #f8fafc;
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid #e2e8f0;
+}
+
+.ccn-class-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.ccn-class-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #2d3748;
+}
+
+.ccn-class-level {
+    font-size: 14px;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.ccn-class-level.beginner {
+    background-color: #e6fffa;
+    color: #319795;
+}
+
+.ccn-class-level.intermediate {
+    background-color: #ebf8ff;
+    color: #3182ce;
+}
+
+.ccn-class-level.advanced {
+    background-color: #fef0f5;
+    color: #d53f8c;
+}
+
+.ccn-class-level.all-levels {
+    background-color: #f0fff4;
+    color: #38a169;
+}
+
+.ccn-class-schedule {
+    font-size: 14px;
+    color: #718096;
+    margin-bottom: 10px;
+}
+
+.ccn-class-instructor {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #4a5568;
+}
+
+.ccn-class-instructor i {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: inline-block;
+    background-image: url('../images/instructor-icon.svg'); /* Ensure this icon exists */
+}
+
+/* PDF Buttons Container */
+.ccn-class-schedule-actions {
+    display: flex;
+    gap: 15px; /* Space between buttons */
+    margin-top: 20px; /* Space above buttons */
+    padding-top: 20px; /* Space above buttons */
+    border-top: 1px solid #e2e8f0; /* Separator line */
+}
+
+/* Style PDF buttons like footer buttons */
+.ccn-view-pdf-button,
+.ccn-download-pdf-button {
+    flex: 1; /* Make buttons equal width */
+    padding: 12px 15px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 1px solid transparent;
+}
+
+.ccn-view-pdf-button {
+    background-color: #3182ce; /* Blue */
+    color: #fff;
+    border-color: #3182ce;
+}
+.ccn-view-pdf-button:hover {
+    background-color: #2b6cb0;
+    border-color: #2b6cb0;
+}
+
+.ccn-download-pdf-button {
+    background-color: #fff; /* White */
+    color: #4a5568; /* Gray text */
+    border: 1px solid #e2e8f0; /* Light border */
+}
+.ccn-download-pdf-button:hover {
+    background-color: #f7fafc;
+    border-color: #cbd5e0;
+}
+
+
+/* Membership Tab */
+.ccn-membership-plans {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.ccn-membership-plan {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ccn-membership-plan:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.ccn-membership-plan.popular {
+    border-color: #3182ce;
+    position: relative;
+}
+
+.ccn-popular-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #3182ce;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 10px;
+    text-transform: uppercase;
+    border-radius: 0 0 0 8px;
+}
+
+.ccn-membership-header {
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid #e2e8f0;
+    background-color: #f8fafc;
+}
+
+.ccn-membership-plan.popular .ccn-membership-header {
+    background-color: #ebf8ff;
+}
+
+.ccn-membership-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 5px;
+}
+
+.ccn-membership-price {
+    font-size: 32px;
+    font-weight: 800;
+    color: #2d3748;
+    margin-bottom: 5px;
+}
+
+.ccn-membership-plan.popular .ccn-membership-price {
+    color: #3182ce;
+}
+
+.ccn-membership-period {
+    font-size: 14px;
+    color: #718096;
+}
+
+.ccn-membership-features {
+    padding: 20px;
+}
+
+.ccn-membership-feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ccn-membership-feature-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: #4a5568;
+}
+
+.ccn-membership-feature-list li::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+    background-image: url('../images/check-icon.svg'); /* Ensure this icon exists */
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.ccn-choose-plan-button {
+    display: block;
+    width: 100%;
+    padding: 12px 0;
+    background-color: #3182ce;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    font-weight: 600;
+    margin-top: 20px;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.ccn-choose-plan-button:hover {
+    background-color: #2b6cb0;
+}
+
+/* Modal Footer */
+.ccn-modal-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    border-top: 1px solid #e2e8f0;
+    background-color: #f8fafc;
+}
+
+.ccn-modal-action-button {
+    padding: 12px 25px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ccn-book-tour-button {
+    background-color: #3182ce;
+    color: #fff;
+}
+
+.ccn-book-tour-button:hover {
+    background-color: #2b6cb0;
+}
+
+.ccn-get-directions-button {
+    background-color: #fff;
+    color: #4a5568;
+    border: 1px solid #e2e8f0;
+}
+
+.ccn-get-directions-button:hover {
+    background-color: #f7fafc;
+    border-color: #cbd5e0;
+}
+
+/* Loading and Error States */
+.ccn-modal-loading,
+.ccn-modal-error {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 15;
+    color: #4a5568;
+    font-size: 16px;
+    display: none; /* Hidden by default */
+}
+.ccn-modal-loading span,
+.ccn-modal-error span {
+    margin-top: 15px;
+}
+.ccn-modal-error span {
+    color: #e53e3e; /* Red for error */
+    font-weight: 600;
+    max-width: 80%;
+    text-align: center;
+}
+
+/* Simple Spinner */
+.ccn-spinner {
+  border: 4px solid #f3f3f3; /* Light grey */
+  border-top: 4px solid #3182ce; /* Blue */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: ccn-spin 1s linear infinite;
+}
+
+@keyframes ccn-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .ccn-modal-header {
+        height: 200px;
+    }
+
+    .ccn-modal-title {
+        font-size: 24px;
+    }
+
+    .ccn-club-info {
+        flex-direction: column;
+    }
+
+    .ccn-club-info-section {
+        padding: 0;
+        margin-bottom: 25px;
+    }
+
+    .ccn-facilities-list,
+    .ccn-classes-list,
+    .ccn-membership-plans {
+        grid-template-columns: 1fr;
+    }
+
+    .ccn-modal-tab {
+        padding: 12px 15px;
+        font-size: 14px;
+    }
+
+    .ccn-modal-footer {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .ccn-modal-action-button {
+        width: 100%;
+        margin-bottom: 0; /* Remove bottom margin as gap is used */
+    }
+
+    .ccn-class-schedule-actions {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .ccn-modal-header {
+        height: 150px;
+    }
+
+    .ccn-modal-title {
+        font-size: 20px;
+    }
+
+    .ccn-modal-tabs {
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .ccn-modal-tab {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+}

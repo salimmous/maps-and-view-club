@@ -1,0 +1,58 @@
+/**
+ * Admin-specific styles for the City Club Network plugin.
+ *
+ * @since      1.0.0
+ * @package    City_Club_Network
+ */
+
+/* Location picker styles */
+#ccn-location-picker {
+    width: 100%;
+    height: 400px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+}
+
+.ccn-meta-field {
+    margin-bottom: 15px;
+}
+
+.ccn-meta-field label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.ccn-meta-field input[type="text"],
+.ccn-meta-field textarea,
+.ccn-meta-field select {
+    width: 100%;
+    max-width: 400px;
+}
+
+.ccn-meta-field .description {
+    display: block;
+    color: #666;
+    font-style: italic;
+    margin-top: 5px;
+}
+
+/* Settings page styles */
+.ccn-settings-page .form-table th {
+    width: 250px;
+}
+
+.ccn-settings-page .regular-text {
+    width: 400px;
+}
+
+.ccn-premium-badge {
+    display: inline-block;
+    background-color: #f0ad4e;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 12px;
+    margin-left: 10px;
+}

@@ -1,0 +1,514 @@
+/**
+ * City Club Network - Public CSS
+ *
+ * @package    City_Club_Network
+ * @version    1.1.0 - Design Overhaul
+ */
+
+/* General Styles */
+.ccn-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    color: #333;
+    background-color: #fff; /* Ensure main background is white */
+}
+
+.ccn-header {
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.ccn-title {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0 0 5px 0;
+    color: #1a202c;
+}
+
+.ccn-title-highlight {
+    color: #3182ce; /* Blue highlight */
+}
+
+.ccn-subtitle {
+    font-size: 16px;
+    color: #718096;
+    margin: 0;
+}
+
+/* View Toggle */
+.ccn-view-toggle {
+    display: flex;
+    justify-content: flex-end;
+    margin: -65px 0 30px 0; /* Position relative to header */
+    position: relative;
+    z-index: 5;
+}
+
+.ccn-view-button {
+    padding: 8px 20px;
+    background-color: #fff;
+    border: 1px solid #e2e8f0;
+    color: #4a5568;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+    margin-left: -1px; /* Overlap borders */
+    cursor: pointer;
+}
+
+.ccn-view-button:hover {
+    background-color: #f7fafc;
+    color: #2d3748;
+}
+
+.ccn-view-button.active {
+    background-color: #3182ce; /* Blue background for active */
+    color: #fff;
+    border-color: #3182ce;
+    z-index: 2;
+    box-shadow: none;
+}
+
+.ccn-grid-view {
+    border-radius: 6px 0 0 6px;
+}
+
+.ccn-map-view {
+    border-radius: 0 6px 6px 0;
+}
+
+/* Filter Bar - Updated Design */
+.ccn-filter-container {
+    background-color: #fff; /* White background */
+    padding: 20px 25px;
+    border-radius: 8px;
+    margin-bottom: 40px;
+    border: 1px solid #e2e8f0; /* Subtle border */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.03); /* Subtle shadow */
+}
+
+.ccn-filter-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ccn-filter-label {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: #4a5568;
+    margin-right: 15px;
+}
+
+.ccn-filter-label i { /* Filter icon */
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background-image: url('../images/filter-icon.svg'); /* Ensure this icon exists */
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+.ccn-filter-selects {
+    display: flex;
+    flex: 1;
+    gap: 15px;
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+.ccn-filter-select {
+    flex-grow: 1;
+}
+
+.ccn-filter-select select {
+    padding: 10px 15px;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #4a5568;
+    background-color: #fff;
+    width: 100%;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+    background-position: right 0.75rem center;
+    background-repeat: no-repeat;
+    background-size: 1.25em 1.25em;
+    padding-right: 2.5rem;
+}
+
+.ccn-apply-filters-button {
+    padding: 10px 25px;
+    background-color: #3182ce; /* Blue background */
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    display: inline-flex; /* Use inline-flex */
+    align-items: center;
+    white-space: nowrap;
+}
+
+.ccn-apply-filters-button:hover {
+    background-color: #2b6cb0; /* Darker blue on hover */
+}
+
+.ccn-filter-apply-icon { /* Check icon inside the apply button */
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    background-image: url('../images/check-icon.svg'); /* Ensure this icon exists */
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 8px;
+    filter: brightness(0) invert(1); /* Make icon white */
+}
+
+/* Grid View */
+.ccn-clubs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+/* --- Club Card Styles (Overlay Design - Target Image) --- */
+.ccn-club-card {
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    border: 1px solid #e2e8f0;
+    position: relative; /* Needed for absolute positioning inside */
+}
+
+.ccn-club-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.ccn-club-card .ccn-club-image {
+    position: relative; /* Container for overlay and badge */
+    height: 220px;
+    overflow: hidden;
+    display: block; /* Ensure it behaves like a block */
+}
+
+.ccn-club-card .ccn-club-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    display: block; /* Remove potential bottom space */
+}
+
+.ccn-club-card:hover .ccn-club-image img {
+    transform: scale(1.05);
+}
+
+.ccn-club-card .ccn-no-image { /* Style for placeholder if no image */
+    width: 100%;
+    height: 100%;
+    background-color: #f0f4f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #a0aec0;
+    font-size: 14px;
+}
+
+/* Image Overlay Content */
+.ccn-club-image-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0) 100%); /* Stronger gradient */
+    color: #fff;
+    z-index: 5;
+}
+
+.ccn-club-card .ccn-club-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 6px 0;
+    color: #fff; /* White text on overlay */
+    line-height: 1.3;
+}
+.ccn-club-card .ccn-club-title a { /* If title is a link */
+    color: inherit;
+    text-decoration: none;
+}
+.ccn-club-card .ccn-club-title a:hover {
+    text-decoration: underline;
+}
+
+.ccn-club-card .ccn-club-address {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #e2e8f0; /* Lighter white/gray */
+    margin: 0;
+    line-height: 1.4;
+}
+
+.ccn-club-card .ccn-location-icon { /* Location icon in overlay */
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    background-image: url('../images/location-icon.svg'); /* Ensure this exists */
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 8px;
+    opacity: 0.8;
+    filter: brightness(0) invert(1); /* Make icon white */
+}
+
+/* Premium badge */
+.ccn-club-card .ccn-premium-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: #FF6B00; /* Orange color */
+    color: white;
+    font-weight: bold;
+    padding: 5px 15px;
+    border-radius: 20px; /* Pill shape */
+    font-size: 13px;
+    z-index: 10;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Content Below Image */
+.ccn-club-card .ccn-club-content {
+    padding: 20px;
+}
+
+/* Facilities styling (Pills) */
+.ccn-club-card .ccn-club-facilities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 15px 0; /* Margin below facilities */
+    padding: 0; /* Reset list padding if it's a ul */
+    list-style: none; /* Reset list style */
+}
+
+.ccn-club-card .ccn-facility-item { /* Style for each pill */
+    display: inline-flex; /* Use inline-flex */
+    align-items: center;
+    background-color: #edf2f7; /* Light gray background */
+    border-radius: 15px; /* Pill shape */
+    padding: 5px 12px;
+    font-size: 13px;
+    color: #4a5568; /* Gray text */
+    line-height: 1; /* Ensure consistent height */
+}
+
+.ccn-club-card .ccn-facility-icon { /* Container for the icon */
+    margin-right: 6px;
+    width: 16px;
+    height: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.7;
+}
+.ccn-club-card .ccn-facility-icon i { /* The actual icon element (e.g., <i> or <span>) */
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+/* Specific Facility Icons (Add classes in PHP based on term slug/name) */
+/* Ensure these images exist in public/images/ */
+.ccn-facility-icon .pool-icon { background-image: url('../images/pool-icon.svg'); }
+.ccn-facility-icon .gym-icon { background-image: url('../images/gym-icon.svg'); }
+.ccn-facility-icon .spa-icon { background-image: url('../images/spa-icon.svg'); } /* Example */
+.ccn-facility-icon .tennis-icon { background-image: url('../images/tennis-icon.svg'); } /* Example */
+.ccn-facility-icon .group-classes-icon { background-image: url('../images/group-classes-icon.svg'); } /* Example */
+.ccn-facility-icon .cardio-area-icon { background-image: url('../images/cardio-icon.svg'); } /* Example */
+.ccn-facility-icon .yoga-studio-icon { background-image: url('../images/yoga-icon.svg'); } /* Example */
+.ccn-facility-icon .sauna-icon { background-image: url('../images/sauna-icon.svg'); } /* Example */
+.ccn-facility-icon .default-icon { background-image: url('../images/default-facility-icon.svg'); } /* Fallback */
+
+
+/* Info Bar (Hours & Rating) */
+.ccn-club-card .ccn-club-info-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 20px 0; /* Margin below info bar */
+    font-size: 14px;
+    color: #718096; /* Gray text */
+    padding-top: 15px; /* Add space above if needed */
+    border-top: 1px solid #f0f4f8; /* Very light separator */
+}
+
+.ccn-club-card .ccn-club-hours {
+    display: flex;
+    align-items: center;
+}
+
+.ccn-club-card .ccn-clock-icon { /* Clock icon */
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    background-image: url('../images/clock-icon.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+.ccn-club-card .ccn-club-rating {
+    display: flex;
+    align-items: center;
+}
+
+.ccn-club-card .ccn-rating-stars {
+    display: inline-flex; /* Use flex for alignment */
+    margin-right: 8px;
+    line-height: 1; /* Prevent extra space */
+}
+
+.ccn-club-card .ccn-star-icon { /* Individual star icon */
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 3px; /* Space between stars */
+}
+.ccn-club-card .ccn-star-icon:last-child {
+    margin-right: 0;
+}
+
+.ccn-club-card .ccn-star-icon.empty {
+    background-image: url('../images/star-empty.svg');
+    opacity: 0.5;
+}
+.ccn-club-card .ccn-star-icon.filled {
+    background-image: url('../images/star-filled.svg');
+}
+.ccn-club-card .ccn-star-icon.half-filled {
+    background-image: url('../images/star-half.svg');
+}
+
+.ccn-club-card .ccn-reviews-count {
+    color: #718096;
+    font-size: 14px;
+    margin-left: 5px; /* Space after stars */
+}
+
+/* Action Buttons */
+.ccn-club-card .ccn-club-actions {
+    display: flex;
+    gap: 10px; /* Space between buttons */
+    margin-top: 0; /* Removed top margin, handled by info-bar padding */
+}
+
+.ccn-club-card .ccn-view-details-button,
+.ccn-club-card .ccn-get-directions-button {
+    flex: 1; /* Make buttons equal width */
+    padding: 12px 15px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 6px;
+    transition: all 0.2s ease-in-out;
+    text-align: center;
+    border: 1px solid transparent; /* Base border */
+    cursor: pointer;
+}
+
+/* View Details button (Blue) */
+.ccn-club-card .ccn-view-details-button {
+    background-color: #3182ce;
+    color: #fff;
+    border-color: #3182ce;
+}
+.ccn-club-card .ccn-view-details-button:hover {
+    background-color: #2b6cb0;
+    border-color: #2b6cb0;
+}
+
+/* Get Directions button (Orange Outline) */
+.ccn-club-card .ccn-get-directions-button {
+    background-color: #fff;
+    color: #FF6B00; /* Orange text */
+    border: 1px solid #FF6B00; /* Orange border */
+}
+.ccn-club-card .ccn-get-directions-button:hover {
+    background-color: #FFF5EB; /* Very light orange background */
+    border-color: #dd6b20; /* Darker orange border */
+    color: #dd6b20; /* Darker orange text */
+}
+/* --- End Club Card Styles --- */
+
+
+/* Pagination */
+.ccn-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+.ccn-pagination ul { list-style: none; padding: 0; margin: 0; display: flex; }
+.ccn-pagination li { margin: 0 4px; }
+.ccn-pagination a, .ccn-pagination span { display: inline-flex; align-items: center; justify-content: center; padding: 0; width: 36px; height: 36px; border: 1px solid #e2e8f0; color: #4a5568; text-decoration: none; border-radius: 6px; transition: all 0.2s ease-in-out; font-size: 14px; font-weight: 600; box-sizing: border-box; }
+.ccn-pagination a:hover { background-color: #f7fafc; border-color: #cbd5e0; color: #2d3748; }
+.ccn-pagination .current { background-color: #3182ce; color: #fff; border-color: #3182ce; font-weight: 700; }
+.ccn-pagination .prev, .ccn-pagination .next { font-weight: bold; }
+
+
+/* No Results */
+.ccn-no-clubs-found, .ccn-no-clubs { text-align: center; padding: 60px 20px; background-color: #f7fafc; border-radius: 8px; border: 1px solid #e2e8f0; grid-column: 1 / -1; }
+.ccn-no-clubs-found p, .ccn-no-clubs p { font-size: 16px; color: #718096; margin: 0; }
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .ccn-view-toggle { margin-top: 20px; justify-content: center; }
+    .ccn-filter-bar { flex-direction: column; align-items: stretch; }
+    .ccn-filter-label { margin-bottom: 15px; margin-right: 0; }
+    .ccn-filter-selects { flex-direction: column; width: 100%; margin: 0 0 15px 0; gap: 10px; margin-left: 0; margin-right: 0; }
+    .ccn-apply-filters-button { width: 100%; justify-content: center; }
+}
+
+@media (max-width: 768px) {
+    .ccn-clubs-grid { grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 20px; }
+    .ccn-title { font-size: 28px; }
+    .ccn-view-toggle { margin-top: 15px; margin-bottom: 25px; }
+     .ccn-club-card .ccn-club-title { font-size: 18px; }
+    .ccn-club-card .ccn-club-image { height: 200px; }
+}
+
+@media (max-width: 480px) {
+    .ccn-container { margin: 20px auto; padding: 15px; }
+    .ccn-clubs-grid { grid-template-columns: 1fr; gap: 20px; }
+    .ccn-filter-container { padding: 15px; }
+    .ccn-apply-filters-button { padding: 10px 20px; }
+    .ccn-club-card .ccn-club-content { padding: 15px; }
+    .ccn-club-card .ccn-club-title { font-size: 17px; }
+     .ccn-club-card .ccn-club-address { font-size: 13px; }
+     .ccn-club-card .ccn-facility-item { font-size: 12px; padding: 4px 10px; }
+     .ccn-club-card .ccn-club-info-bar { flex-direction: column; align-items: flex-start; gap: 8px; margin-bottom: 15px; padding-top: 10px; }
+     .ccn-club-card .ccn-club-actions { flex-direction: column; }
+    .ccn-pagination a, .ccn-pagination span { width: 32px; height: 32px; font-size: 13px; }
+}

@@ -1,0 +1,334 @@
+/**
+ * City Club Network - Map View CSS
+ *
+ * @package    City_Club_Network
+ */
+
+/* Map Container (Overall wrapper when map view is active) */
+.ccn-map-view-content {
+    /* Styles for the container holding both sidebar and map */
+}
+
+/* Main Flex Container for Sidebar + Map */
+.ccn-map-layout-container {
+    display: flex;
+    background-color: #fff; /* White background */
+    border: 1px solid #e2e8f0; /* Light border */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); /* Subtle shadow */
+    margin-bottom: 30px;
+    min-height: 650px; /* Ensure sufficient height */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; /* Match grid view */
+}
+
+/* Map Sidebar */
+.ccn-map-sidebar {
+    width: 350px; /* Fixed width for sidebar */
+    background-color: #f7fafc; /* Light gray background */
+    border-right: 1px solid #e2e8f0; /* Separator */
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0; /* Prevent sidebar from shrinking */
+}
+
+.ccn-map-finder-header {
+    padding: 20px 25px; /* Consistent padding */
+    border-bottom: 1px solid #e2e8f0; /* Separator */
+    background-color: #fff; /* White header background */
+}
+
+.ccn-map-finder-header h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    color: #2d3748; /* Darker gray */
+}
+
+.ccn-map-finder-header p {
+    font-size: 14px;
+    color: #718096; /* Lighter gray */
+    margin: 0 0 12px 0;
+}
+
+.ccn-locations-count {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #3182ce; /* Blue */
+    font-weight: 600;
+}
+
+.ccn-locations-count .ccn-location-icon { /* Reuse location icon style */
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-image: url('../images/location-icon.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 6px;
+    opacity: 0.8;
+}
+
+/* Map Clubs List */
+.ccn-map-clubs-list {
+    flex: 1; /* Take remaining vertical space */
+    overflow-y: auto; /* Enable scrolling */
+    padding: 0; /* Remove padding, add to items */
+}
+
+.ccn-map-club-item {
+    padding: 15px 25px; /* Consistent padding */
+    border-bottom: 1px solid #e2e8f0; /* Separator */
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    display: flex;
+    align-items: flex-start; /* Align items to top */
+}
+
+.ccn-map-club-item:last-child {
+    border-bottom: none; /* Remove border from last item */
+}
+
+.ccn-map-club-item:hover {
+    background-color: #edf2f7; /* Light blue/gray on hover */
+}
+
+.ccn-map-club-item.active {
+    background-color: #ebf8ff; /* Lighter blue for active */
+    border-left: 3px solid #3182ce; /* Blue left border for active */
+    padding-left: 22px; /* Adjust padding for border */
+}
+
+.ccn-map-club-thumbnail {
+    width: 70px;
+    height: 70px;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-right: 15px;
+    position: relative;
+    flex-shrink: 0;
+    background-color: #e2e8f0;
+}
+
+.ccn-map-club-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ccn-map-club-no-thumbnail {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ccn-map-club-info {
+    flex: 1;
+}
+
+.ccn-map-club-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 6px 0;
+    color: #2d3748;
+    line-height: 1.3;
+}
+
+.ccn-map-club-address {
+    font-size: 13px;
+    color: #718096;
+    margin: 0 0 10px 0;
+    display: flex;
+    align-items: flex-start;
+    line-height: 1.4;
+}
+
+.ccn-map-club-address .ccn-location-pin-icon {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background-image: url('../images/location-icon.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 6px;
+    margin-top: 3px;
+    opacity: 0.7;
+    flex-shrink: 0;
+}
+
+.ccn-map-club-link {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #3182ce;
+    color: #fff;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 4px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.ccn-map-club-link:hover {
+    background-color: #2b6cb0;
+}
+
+/* Premium badge - updated to match grid view */
+.ccn-premium-badge {
+    position: absolute;
+    top: 8px; /* Adjusted position */
+    right: 8px; /* Adjusted position */
+    background-color: #FF6B00; /* Orange color */
+    color: white;
+    font-weight: bold;
+    padding: 4px 10px; /* Adjusted padding */
+    border-radius: 15px; /* More rounded */
+    font-size: 11px; /* Adjusted font size */
+    z-index: 10;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Map Area */
+.ccn-map-area {
+    flex: 1;
+    position: relative;
+    background-color: #e2e8f0;
+}
+
+#ccn-map {
+    width: 100%;
+    height: 100%;
+    min-height: 650px;
+}
+
+/* Map Markers */
+.ccn-map-marker {
+    cursor: pointer;
+}
+
+.ccn-map-marker-standard,
+.ccn-map-marker-premium {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    width: 32px;
+    height: 42px;
+    border: none !important;
+    background-color: transparent !important;
+}
+
+.ccn-map-marker-standard {
+    background-image: url('../images/marker-standard.svg');
+}
+
+.ccn-map-marker-premium {
+    background-image: url('../images/marker-premium.svg');
+}
+
+/* Map Info Window */
+.ccn-map-info-window {
+    padding: 15px;
+    max-width: 280px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.ccn-map-info-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    color: #2d3748;
+}
+
+.ccn-map-info-address {
+    font-size: 13px;
+    color: #718096;
+    margin: 0 0 12px 0;
+}
+
+.ccn-map-info-link { /* Reuse button style */
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: #3182ce;
+    color: #fff;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 4px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.ccn-map-info-link:hover {
+    background-color: #2b6cb0;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .ccn-map-layout-container {
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    .ccn-map-sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #e2e8f0;
+        max-height: 40vh;
+        min-height: 250px;
+    }
+
+    .ccn-map-area {
+        height: 500px;
+    }
+     #ccn-map {
+        min-height: 500px;
+    }
+}
+
+@media (max-width: 480px) {
+     .ccn-map-sidebar {
+        width: 100%;
+        max-height: 45vh;
+        min-height: 200px;
+    }
+    .ccn-map-finder-header {
+        padding: 15px 20px;
+    }
+     .ccn-map-club-item {
+        padding: 12px 20px;
+    }
+    .ccn-map-club-thumbnail {
+        width: 60px;
+        height: 60px;
+        margin-right: 12px;
+    }
+    .ccn-map-club-title {
+        font-size: 14px;
+    }
+     .ccn-map-club-address {
+        font-size: 12px;
+        margin-bottom: 8px;
+    }
+    .ccn-map-club-link {
+        padding: 5px 10px;
+        font-size: 11px;
+    }
+    .ccn-premium-badge { /* Adjust badge for smaller sidebar items */
+        padding: 3px 8px;
+        font-size: 10px;
+        top: 5px;
+        right: 5px;
+    }
+    .ccn-map-area {
+        height: 400px;
+    }
+     #ccn-map {
+        min-height: 400px;
+    }
+}
