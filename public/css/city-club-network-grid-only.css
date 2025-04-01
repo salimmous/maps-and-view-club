@@ -1,0 +1,170 @@
+/**
+ * City Club Network - Grid Only CSS
+ *
+ * @package    City_Club_Network
+ * @version    1.0.0
+ */
+
+/* Grid-only container styles */
+#ccn-grid-only-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    color: #333;
+    background-color: #fff;
+}
+
+/* Header styles */
+#ccn-grid-only-container .ccn-header {
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+#ccn-grid-only-container .ccn-title {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0 0 5px 0;
+    color: #1a202c;
+}
+
+#ccn-grid-only-container .ccn-title-highlight {
+    color: #3182ce; /* Blue highlight */
+}
+
+#ccn-grid-only-container .ccn-subtitle {
+    font-size: 16px;
+    color: #718096;
+    margin: 0;
+}
+
+/* Filter Bar */
+#ccn-grid-only-container .ccn-filter-container {
+    background-color: #fff;
+    padding: 20px 25px;
+    border-radius: 8px;
+    margin-bottom: 40px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+}
+
+#ccn-grid-only-container .ccn-filter-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#ccn-grid-only-container .ccn-filter-label {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: #4a5568;
+    margin-right: 15px;
+}
+
+#ccn-grid-only-container .ccn-filter-label i {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background-image: url('../images/filter-icon.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+#ccn-grid-only-container .ccn-filter-selects {
+    display: flex;
+    flex: 1;
+    gap: 15px;
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+#ccn-grid-only-container .ccn-filter-select {
+    flex-grow: 1;
+}
+
+#ccn-grid-only-container .ccn-filter-select select {
+    padding: 10px 15px;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #4a5568;
+    background-color: #fff;
+    width: 100%;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+    background-position: right 0.75rem center;
+    background-repeat: no-repeat;
+    background-size: 1.25em 1.25em;
+    padding-right: 2.5rem;
+}
+
+#ccn-grid-only-container .ccn-apply-filters-button {
+    padding: 10px 25px;
+    background-color: #3182ce;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+#ccn-grid-only-container .ccn-apply-filters-button:hover {
+    background-color: #2b6cb0;
+}
+
+#ccn-grid-only-container .ccn-filter-apply-icon {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    background-image: url('../images/check-icon.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 8px;
+    filter: brightness(0) invert(1);
+}
+
+/* Grid View */
+#ccn-grid-only-container .ccn-clubs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    #ccn-grid-only-container .ccn-filter-bar { flex-direction: column; align-items: stretch; }
+    #ccn-grid-only-container .ccn-filter-label { margin-bottom: 15px; margin-right: 0; }
+    #ccn-grid-only-container .ccn-filter-selects { flex-direction: column; width: 100%; margin: 0 0 15px 0; gap: 10px; margin-left: 0; margin-right: 0; }
+    #ccn-grid-only-container .ccn-apply-filters-button { width: 100%; justify-content: center; }
+}
+
+@media (max-width: 1200px) {
+    #ccn-grid-only-container .ccn-clubs-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+}
+
+@media (max-width: 992px) {
+    #ccn-grid-only-container .ccn-clubs-grid { grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 15px; }
+}
+
+@media (max-width: 768px) {
+    #ccn-grid-only-container .ccn-clubs-grid { grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 20px; }
+    #ccn-grid-only-container .ccn-title { font-size: 28px; }
+}
+
+@media (max-width: 480px) {
+    #ccn-grid-only-container { margin: 20px auto; padding: 15px; }
+    #ccn-grid-only-container .ccn-clubs-grid { grid-template-columns: 1fr; gap: 20px; }
+    #ccn-grid-only-container .ccn-filter-container { padding: 15px; }
+    #ccn-grid-only-container .ccn-apply-filters-button { padding: 10px 20px; }
+}
