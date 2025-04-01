@@ -2,7 +2,7 @@
  * City Club Network - Public CSS
  *
  * @package    City_Club_Network
- * @version    1.1.0 - Design Overhaul
+ * @version    1.2.0 - Updated Card Design
  */
 
 /* General Styles */
@@ -178,12 +178,13 @@
 /* Grid View */
 .ccn-clubs-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    /* Adjust minmax for potentially wider cards if needed */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 30px;
     margin-bottom: 40px;
 }
 
-/* --- Club Card Styles (Overlay Design - Target Image) --- */
+/* --- Club Card Styles (New Design - Image 2) --- */
 .ccn-club-card {
     background-color: #fff;
     border-radius: 10px;
@@ -192,6 +193,8 @@
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
     border: 1px solid #e2e8f0;
     position: relative; /* Needed for absolute positioning inside */
+    display: flex; /* Use flexbox for vertical layout */
+    flex-direction: column; /* Stack image and content vertically */
 }
 
 .ccn-club-card:hover {
@@ -201,7 +204,7 @@
 
 .ccn-club-card .ccn-club-image {
     position: relative; /* Container for overlay and badge */
-    height: 220px;
+    height: 220px; /* Adjust height as needed */
     overflow: hidden;
     display: block; /* Ensure it behaves like a block */
 }
@@ -242,7 +245,7 @@
 }
 
 .ccn-club-card .ccn-club-title {
-    font-size: 20px;
+    font-size: 20px; /* Adjust as needed */
     font-weight: 700;
     margin: 0 0 6px 0;
     color: #fff; /* White text on overlay */
@@ -297,6 +300,9 @@
 /* Content Below Image */
 .ccn-club-card .ccn-club-content {
     padding: 20px;
+    flex-grow: 1; /* Allow content to fill remaining space */
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
 }
 
 /* Facilities styling (Pills) */
@@ -422,7 +428,8 @@
 .ccn-club-card .ccn-club-actions {
     display: flex;
     gap: 10px; /* Space between buttons */
-    margin-top: 0; /* Removed top margin, handled by info-bar padding */
+    margin-top: auto; /* Push buttons to the bottom */
+    padding-top: 10px; /* Add some space above buttons if needed */
 }
 
 .ccn-club-card .ccn-view-details-button,
@@ -437,6 +444,9 @@
     text-align: center;
     border: 1px solid transparent; /* Base border */
     cursor: pointer;
+    display: inline-flex; /* Ensure alignment if icons are added */
+    align-items: center;
+    justify-content: center;
 }
 
 /* View Details button (Blue) */
@@ -489,26 +499,27 @@
     .ccn-filter-label { margin-bottom: 15px; margin-right: 0; }
     .ccn-filter-selects { flex-direction: column; width: 100%; margin: 0 0 15px 0; gap: 10px; margin-left: 0; margin-right: 0; }
     .ccn-apply-filters-button { width: 100%; justify-content: center; }
+    .ccn-clubs-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; } /* Adjust grid for tablets */
 }
 
 @media (max-width: 768px) {
-    .ccn-clubs-grid { grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 20px; }
+    .ccn-clubs-grid { grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 20px; } /* Keep slightly larger min width for better layout */
     .ccn-title { font-size: 28px; }
     .ccn-view-toggle { margin-top: 15px; margin-bottom: 25px; }
-     .ccn-club-card .ccn-club-title { font-size: 18px; }
+    .ccn-club-card .ccn-club-title { font-size: 18px; }
     .ccn-club-card .ccn-club-image { height: 200px; }
 }
 
 @media (max-width: 480px) {
     .ccn-container { margin: 20px auto; padding: 15px; }
-    .ccn-clubs-grid { grid-template-columns: 1fr; gap: 20px; }
+    .ccn-clubs-grid { grid-template-columns: 1fr; gap: 20px; } /* Single column on small screens */
     .ccn-filter-container { padding: 15px; }
     .ccn-apply-filters-button { padding: 10px 20px; }
     .ccn-club-card .ccn-club-content { padding: 15px; }
     .ccn-club-card .ccn-club-title { font-size: 17px; }
-     .ccn-club-card .ccn-club-address { font-size: 13px; }
-     .ccn-club-card .ccn-facility-item { font-size: 12px; padding: 4px 10px; }
-     .ccn-club-card .ccn-club-info-bar { flex-direction: column; align-items: flex-start; gap: 8px; margin-bottom: 15px; padding-top: 10px; }
-     .ccn-club-card .ccn-club-actions { flex-direction: column; }
+    .ccn-club-card .ccn-club-address { font-size: 13px; }
+    .ccn-club-card .ccn-facility-item { font-size: 12px; padding: 4px 10px; }
+    .ccn-club-card .ccn-club-info-bar { flex-direction: column; align-items: flex-start; gap: 8px; margin-bottom: 15px; padding-top: 10px; }
+    .ccn-club-card .ccn-club-actions { flex-direction: column; }
     .ccn-pagination a, .ccn-pagination span { width: 32px; height: 32px; font-size: 13px; }
 }
