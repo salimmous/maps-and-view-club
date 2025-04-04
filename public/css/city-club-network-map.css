@@ -1,265 +1,353 @@
 /**
  * City Club Network - Map View CSS
+ * Redesigned for Map Left / Sidebar Right layout
  *
  * @package    City_Club_Network
+ * @version    1.3.0
  */
 
-/* Map Container (Overall wrapper when map view is active) */
-.ccn-map-view-content {
-    /* Styles for the container holding both sidebar and map */
-}
+/* --- Base Layout --- */
 
-/* Main Flex Container for Sidebar + Map */
 .ccn-map-layout-container {
     display: flex;
-    background-color: #fff; /* White background */
-    border: 1px solid #e2e8f0; /* Light border */
-    border-radius: 8px;
+    flex-direction: row; /* Default: Map Left, Sidebar Right */
+    background-color: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px; /* Slightly more rounded */
     overflow: hidden;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); /* Subtle shadow */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     margin-bottom: 30px;
-    min-height: 650px; /* Ensure sufficient height */
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; /* Match grid view */
+    min-height: 650px; /* Default height */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
-/* Map Sidebar */
-.ccn-map-sidebar {
-    width: 350px; /* Fixed width for sidebar */
-    background-color: #f7fafc; /* Light gray background */
-    border-right: 1px solid #e2e8f0; /* Separator */
-    display: flex;
-    flex-direction: column;
-    flex-shrink: 0; /* Prevent sidebar from shrinking */
+/* Standalone map might not need margin */
+.ccn-standalone-map {
+    margin-bottom: 0;
+    border-radius: 0; /* Or keep radius? */
+    box-shadow: none;
+    border: none;
 }
 
-.ccn-map-finder-header {
-    padding: 20px 25px; /* Consistent padding */
-    border-bottom: 1px solid #e2e8f0; /* Separator */
-    background-color: #fff; /* White header background */
-}
+/* --- Map Area (Left) --- */
 
-.ccn-map-finder-header h3 {
-    font-size: 18px;
-    font-weight: 700;
-    margin: 0 0 8px 0;
-    color: #2d3748; /* Darker gray */
-}
-
-.ccn-map-finder-header p {
-    font-size: 14px;
-    color: #718096; /* Lighter gray */
-    margin: 0 0 12px 0;
-}
-
-.ccn-locations-count {
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    color: #3182ce; /* Blue */
-    font-weight: 600;
-}
-
-.ccn-locations-count .ccn-location-icon { /* Reuse location icon style */
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    background-image: url('../images/location-icon.svg');
-    background-size: contain;
-    background-repeat: no-repeat;
-    margin-right: 6px;
-    opacity: 0.8;
-}
-
-/* Map Clubs List */
-.ccn-map-clubs-list {
-    flex: 1; /* Take remaining vertical space */
-    overflow-y: auto; /* Enable scrolling */
-    padding: 0; /* Remove padding, add to items */
-}
-
-.ccn-map-club-item {
-    padding: 15px 25px; /* Consistent padding */
-    border-bottom: 1px solid #e2e8f0; /* Separator */
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-    display: flex;
-    align-items: flex-start; /* Align items to top */
-}
-
-.ccn-map-club-item:last-child {
-    border-bottom: none; /* Remove border from last item */
-}
-
-.ccn-map-club-item:hover {
-    background-color: #edf2f7; /* Light blue/gray on hover */
-}
-
-.ccn-map-club-item.active {
-    background-color: #ebf8ff; /* Lighter blue for active */
-    border-left: 3px solid #3182ce; /* Blue left border for active */
-    padding-left: 22px; /* Adjust padding for border */
-}
-
-.ccn-map-club-thumbnail {
-    width: 70px;
-    height: 70px;
-    border-radius: 6px;
-    overflow: hidden;
-    margin-right: 15px;
-    position: relative;
-    flex-shrink: 0;
-    background-color: #e2e8f0;
-}
-
-.ccn-map-club-thumbnail img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.ccn-map-club-no-thumbnail {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.ccn-map-club-info {
-    flex: 1;
-}
-
-.ccn-map-club-title {
-    font-size: 15px;
-    font-weight: 600;
-    margin: 0 0 6px 0;
-    color: #2d3748;
-    line-height: 1.3;
-}
-
-.ccn-map-club-address {
-    font-size: 13px;
-    color: #718096;
-    margin: 0 0 10px 0;
-    display: flex;
-    align-items: flex-start;
-    line-height: 1.4;
-}
-
-.ccn-map-club-address .ccn-location-pin-icon {
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    background-image: url('../images/location-icon.svg');
-    background-size: contain;
-    background-repeat: no-repeat;
-    margin-right: 6px;
-    margin-top: 3px;
-    opacity: 0.7;
-    flex-shrink: 0;
-}
-
-.ccn-map-club-link {
-    display: inline-block;
-    padding: 6px 12px;
-    background-color: #3182ce;
-    color: #fff;
-    text-decoration: none;
-    font-size: 12px;
-    font-weight: 600;
-    border-radius: 4px;
-    transition: background-color 0.2s ease-in-out;
-}
-
-.ccn-map-club-link:hover {
-    background-color: #2b6cb0;
-}
-
-/* Premium badge - updated to match grid view */
-.ccn-premium-badge {
-    position: absolute;
-    top: 8px; /* Adjusted position */
-    right: 8px; /* Adjusted position */
-    background-color: #FF6B00; /* Orange color */
-    color: white;
-    font-weight: bold;
-    padding: 4px 10px; /* Adjusted padding */
-    border-radius: 15px; /* More rounded */
-    font-size: 11px; /* Adjusted font size */
-    z-index: 10;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-}
-
-
-/* Map Area */
 .ccn-map-area {
-    flex: 1;
+    flex: 2; /* Takes up more space */
+    min-width: 0; /* Prevent flex item from overflowing */
     position: relative;
-    background-color: #e2e8f0;
+    background-color: #e2e8f0; /* Placeholder background */
 }
 
 #ccn-map {
     width: 100%;
     height: 100%;
-    min-height: 650px;
+    min-height: 650px; /* Match container height */
+}
+.ccn-standalone-map #ccn-map {
+     min-height: 500px; /* Default height for standalone */
+     /* Allow override via shortcode attribute or inline style if needed */
 }
 
-/* Map Markers */
-.ccn-map-marker {
-    cursor: pointer;
+.ccn-map-loading-text {
+    text-align: center;
+    padding-top: 50px;
+    color: #666;
+    font-size: 16px;
 }
 
-.ccn-map-marker-standard,
-.ccn-map-marker-premium {
+/* --- Sidebar (Right) --- */
+
+.ccn-map-sidebar {
+    width: 380px; /* Fixed width for sidebar */
+    flex-shrink: 0; /* Prevent sidebar from shrinking */
+    background-color: #fff; /* White background */
+    border-left: 1px solid #e2e8f0; /* Separator */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Prevent content spill */
+}
+
+.ccn-map-sidebar-header {
+    padding: 20px 25px;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    background-color: #f8fafc; /* Light background for header */
+}
+
+.ccn-sidebar-icon-pin {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url('../images/location-pin-alt.svg'); /* Use new pin icon */
     background-size: contain;
     background-repeat: no-repeat;
-    background-position: center bottom;
-    width: 32px;
-    height: 42px;
-    border: none !important;
-    background-color: transparent !important;
+    margin-right: 10px;
+    opacity: 0.7;
 }
 
-.ccn-map-marker-standard {
-    background-image: url('../images/marker-standard.svg');
+.ccn-map-sidebar-header h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+    color: #2d3748;
 }
 
-.ccn-map-marker-premium {
-    background-image: url('../images/marker-premium.svg');
+/* --- Club List --- */
+
+.ccn-map-clubs-list {
+    flex: 1; /* Takes remaining space above details */
+    overflow-y: auto; /* Enable scrolling */
+    padding: 10px 0; /* Padding top/bottom */
+    border-bottom: 1px solid #e2e8f0;
 }
 
-/* Map Info Window */
-.ccn-map-info-window {
-    padding: 15px;
-    max-width: 280px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+.ccn-map-list-loading,
+.ccn-map-list-no-results {
+    text-align: center;
+    padding: 40px 20px;
+    color: #718096;
+}
+.ccn-map-list-loading span,
+.ccn-map-list-no-results span {
+    margin-left: 10px;
     font-size: 14px;
+}
+
+.ccn-map-club-item {
+    padding: 12px 25px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    border-left: 4px solid transparent; /* For active state */
+    margin-left: -1px; /* Align with border */
+}
+
+.ccn-map-club-item:hover {
+    background-color: #f7fafc; /* Light gray on hover */
+}
+
+.ccn-map-club-item.active {
+    background-color: #FFF5EB; /* Light orange background for active */
+    border-left-color: #FF6B00; /* Orange left border */
+    font-weight: 600;
+}
+.ccn-map-club-item.active .ccn-map-club-item-title {
+    color: #dd6b20; /* Darker orange text */
+}
+.ccn-map-club-item.active .ccn-map-club-item-icon {
+    filter: none; /* Remove filter for active icon */
+    opacity: 1;
+}
+
+
+.ccn-map-club-item-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-image: url('../images/location-pin-alt.svg'); /* Use new pin icon */
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 12px;
+    opacity: 0.6;
+    filter: grayscale(50%); /* Muted icon */
+    transition: filter 0.2s ease, opacity 0.2s ease;
+}
+
+.ccn-map-club-item-title {
+    font-size: 15px;
+    color: #4a5568;
+    line-height: 1.4;
+    flex: 1;
+}
+
+/* --- Selected Club Details Panel --- */
+
+.ccn-map-selected-club-details {
+    padding: 25px;
+    background-color: #f8fafc; /* Light background for details */
+    min-height: 250px; /* Ensure minimum height */
+    position: relative; /* For loading/error overlays */
+    display: flex; /* Use flex for centering placeholder/loader */
+    align-items: center;
+    justify-content: center;
+}
+
+/* Placeholder, Loading, Error States */
+.ccn-details-placeholder,
+.ccn-details-loading,
+.ccn-details-error {
+    text-align: center;
+    color: #718096;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.ccn-details-placeholder i,
+.ccn-details-error i {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 10px;
+    opacity: 0.5;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.ccn-info-icon { background-image: url('../images/info-icon.svg'); } /* Add info icon */
+.ccn-error-icon { background-image: url('../images/error-icon.svg'); } /* Add error icon */
+
+.ccn-details-loading span {
+    margin-top: 10px; /* Spinner has implicit size */
+}
+.ccn-details-error span {
+    color: #c53030; /* Red error text */
+    font-weight: 500;
+}
+
+/* Actual Content Styling */
+.ccn-details-content {
+    width: 100%;
+    text-align: left; /* Reset text align */
+}
+
+.ccn-details-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+    color: #2d3748;
+}
+
+.ccn-details-address,
+.ccn-details-phone,
+.ccn-details-hours p {
+    font-size: 14px;
+    color: #4a5568;
+    margin: 0 0 8px 0;
+    display: flex;
+    align-items: flex-start; /* Align icon top */
     line-height: 1.5;
+}
+.ccn-details-hours { margin-bottom: 15px; }
+.ccn-details-hours p { margin-bottom: 4px; }
+
+.ccn-details-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+    margin-top: 2px; /* Align with text */
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.7;
+    flex-shrink: 0;
+}
+.ccn-icon-location { background-image: url('../images/location-icon.svg'); }
+.ccn-icon-phone { background-image: url('../images/phone-icon.svg'); }
+.ccn-icon-clock { background-image: url('../images/clock-icon.svg'); }
+.ccn-icon-amenities { background-image: url('../images/amenities-icon.svg'); }
+.ccn-icon-directions { background-image: url('../images/directions-icon.svg'); filter: brightness(0) invert(1); } /* White icon for button */
+.ccn-icon-clock.transparent { opacity: 0; } /* Invisible clock for alignment */
+
+.ccn-details-amenities {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.ccn-details-amenities h5 {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+    color: #2d3748;
+    display: flex;
+    align-items: center;
+}
+
+.ccn-amenities-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+    color: #4a5568;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 15px; /* Row and column gap */
+}
+
+.ccn-amenities-list li {
+    position: relative;
+    padding-left: 15px; /* Space for bullet */
+}
+
+.ccn-amenities-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #FF6B00; /* Orange bullet */
+    font-weight: bold;
+}
+
+.ccn-details-directions-button {
+    display: inline-flex; /* Use inline-flex */
+    align-items: center;
+    justify-content: center;
+    padding: 12px 25px;
+    background-color: #FF6B00; /* Orange background */
+    color: #fff;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: background-color 0.2s ease-in-out;
+    margin-top: 25px;
+    width: 100%; /* Full width */
+    box-sizing: border-box;
+}
+
+.ccn-details-directions-button:hover {
+    background-color: #dd6b20; /* Darker orange */
+}
+
+.ccn-details-directions-button .ccn-details-icon {
+    margin-right: 8px;
+    margin-top: 0; /* Reset top margin for button */
+    opacity: 1; /* Ensure icon is visible */
+}
+
+
+/* --- Map Info Window --- */
+/* Keep previous info window styles or simplify if not needed */
+.ccn-map-info-window {
+    padding: 10px 15px; /* Slightly smaller */
+    max-width: 250px;
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 1.4;
 }
 
 .ccn-map-info-title {
-    font-size: 16px;
-    font-weight: 700;
-    margin: 0 0 8px 0;
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 5px 0;
     color: #2d3748;
 }
 
 .ccn-map-info-address {
-    font-size: 13px;
+    font-size: 12px;
     color: #718096;
-    margin: 0 0 12px 0;
+    margin: 0 0 8px 0;
 }
 
-.ccn-map-info-link { /* Reuse button style */
+.ccn-map-info-link {
     display: inline-block;
-    padding: 8px 15px;
+    padding: 5px 10px;
     background-color: #3182ce;
     color: #fff;
     text-decoration: none;
-    font-size: 13px;
-    font-weight: 600;
+    font-size: 11px;
+    font-weight: 500;
     border-radius: 4px;
     transition: background-color 0.2s ease-in-out;
 }
@@ -268,67 +356,88 @@
     background-color: #2b6cb0;
 }
 
-/* Responsive Styles */
+/* --- Responsive --- */
+
 @media (max-width: 992px) {
     .ccn-map-layout-container {
         flex-direction: column;
-        min-height: auto;
+        min-height: auto; /* Adjust height */
     }
 
     .ccn-map-sidebar {
         width: 100%;
-        border-right: none;
-        border-bottom: 1px solid #e2e8f0;
-        max-height: 40vh;
-        min-height: 250px;
+        border-left: none;
+        border-top: 1px solid #e2e8f0; /* Separator on top */
+        flex-direction: row; /* Arrange list and details side-by-side */
+        max-height: 45vh; /* Limit height */
+    }
+
+    .ccn-map-clubs-list {
+        flex: 1; /* Take available space */
+        border-bottom: none;
+        border-right: 1px solid #e2e8f0; /* Separator between list and details */
+        padding: 10px 0;
+    }
+
+    .ccn-map-selected-club-details {
+        flex: 1.5; /* Give details more space */
+        min-height: 0; /* Reset min height */
+        max-height: 100%; /* Allow scrolling within */
+        overflow-y: auto;
+        padding: 20px;
     }
 
     .ccn-map-area {
-        height: 500px;
+        height: 55vh; /* Map takes remaining height */
     }
      #ccn-map {
-        min-height: 500px;
+        min-height: 300px; /* Minimum map height */
+        height: 100%;
     }
 }
 
-@media (max-width: 480px) {
-     .ccn-map-sidebar {
-        width: 100%;
-        max-height: 45vh;
-        min-height: 200px;
+@media (max-width: 600px) {
+    .ccn-map-sidebar {
+        flex-direction: column; /* Stack list and details */
+        max-height: 50vh;
     }
-    .ccn-map-finder-header {
-        padding: 15px 20px;
+    .ccn-map-clubs-list {
+         border-right: none;
+         border-bottom: 1px solid #e2e8f0;
+         max-height: 200px; /* Limit list height */
+         flex: none; /* Don't allow list to grow */
     }
-     .ccn-map-club-item {
-        padding: 12px 20px;
-    }
-    .ccn-map-club-thumbnail {
-        width: 60px;
-        height: 60px;
-        margin-right: 12px;
-    }
-    .ccn-map-club-title {
-        font-size: 14px;
-    }
-     .ccn-map-club-address {
-        font-size: 12px;
-        margin-bottom: 8px;
-    }
-    .ccn-map-club-link {
-        padding: 5px 10px;
-        font-size: 11px;
-    }
-    .ccn-premium-badge { /* Adjust badge for smaller sidebar items */
-        padding: 3px 8px;
-        font-size: 10px;
-        top: 5px;
-        right: 5px;
+    .ccn-map-selected-club-details {
+        flex: 1; /* Take remaining space */
+        padding: 15px;
     }
     .ccn-map-area {
-        height: 400px;
+        height: 50vh;
     }
-     #ccn-map {
-        min-height: 400px;
+    #ccn-map {
+        min-height: 250px;
     }
+
+    .ccn-details-title { font-size: 16px; }
+    .ccn-details-address, .ccn-details-phone, .ccn-details-hours p, .ccn-amenities-list { font-size: 13px; }
+    .ccn-details-amenities h5 { font-size: 14px; }
+    .ccn-details-directions-button { font-size: 14px; padding: 10px 20px; }
+    .ccn-map-club-item { padding: 10px 15px; }
+    .ccn-map-club-item-title { font-size: 14px; }
+}
+
+/* Add spinner styles if not already present globally */
+.ccn-spinner {
+  border: 3px solid #f3f3f3; /* Light grey */
+  border-top: 3px solid #FF6B00; /* Orange */
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: ccn-spin 1s linear infinite;
+  display: inline-block; /* Ensure it takes space */
+}
+
+@keyframes ccn-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

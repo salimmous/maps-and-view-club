@@ -6,6 +6,7 @@ City Club Network is a WordPress plugin designed to display fitness clubs across
 ## Features
 - **Multiple View Options**: Display clubs in grid layout, interactive map view (using `[city_club_network]`), or grid-only view (using `[city_club_grid]`).
 - **Standalone Map View**: Display only the interactive map using the `[city_club_map]` shortcode.
+- **Standalone Search Bar**: Display a dedicated search bar using the `[city_club_search_bar]` shortcode.
 - **Advanced Filtering**: Filter clubs by city, facilities, and membership types (applies to all shortcodes).
 - **Interactive Map**: Google Maps integration with custom markers, location list, and details panel.
 - **Responsive Design**: Fully responsive interface that works on all devices.
@@ -143,6 +144,31 @@ Display map of clubs with a swimming pool:
 Display map with a specific height:
 `[city_club_map height="500px"]`
 
+### 4. Standalone Search Bar
+
+To display *only* the search bar, use:
+
+```
+[city_club_search_bar]
+```
+
+This shortcode displays a search input field (for city or club name) and a dropdown for facilities. When submitted, it will redirect the user, passing the search term (`ccn_search_term`) and selected facility (`ccn_facility`) as URL parameters.
+
+**Shortcode Parameters (`[city_club_search_bar]`):**
+
+| Parameter | Description | Default | Options |
+|-----------|-------------|---------|----------|
+| results_page_url | The URL of the page where the search results should be displayed (e.g., a page containing `[city_club_network]` or `[city_club_grid]`). | Current page URL | Any valid URL |
+
+**Examples:**
+
+Display the search bar on the current page (results will appear on the same page after submission):
+`[city_club_search_bar]`
+
+Display the search bar and redirect results to a specific page:
+`[city_club_search_bar results_page_url="/find-a-club/"]`
+
+**Note:** The `[city_club_network]` and `[city_club_grid]` shortcodes will automatically use the `ccn_facility` URL parameter passed by this search bar to filter the displayed clubs. Filtering by the text search term (`ccn_search_term`) is not implemented in the listing shortcodes yet.
 
 ## Customization
 
@@ -158,6 +184,7 @@ The plugin includes CSS files that can be overridden in your theme:
 - `public/css/city-club-network-grid-only.css` - Grid-only view specific styling (4-cards-per-row layout).
 - `public/css/city-club-network-map.css` - Map view specific styling (sidebar, details panel).
 - `public/css/city-club-network-modal.css` - Styling for the popup modal (used in grid view).
+- `public/css/city-club-network-search-bar.css` - Styling for the standalone search bar.
 
 ### Card Layout Customization
 The new grid layout features 4 cards per row for better space utilization on larger screens. The cards have been redesigned to display essential information in a more compact format while maintaining readability. To customize the card appearance, you can override the styles in `public/css/city-club-network-grid-only.css`.
@@ -185,6 +212,7 @@ Advanced users can copy the template files from the plugin's `public/partials` d
 ### Filters Not Working
 - Make sure you've assigned the appropriate taxonomies (City, Facility, Membership Category) to your clubs.
 - Check that the slug names used in your shortcode attributes match the actual taxonomy slugs.
+- If using the search bar, ensure the `results_page_url` (if set) points to a page with a listing shortcode (`[city_club_network]` or `[city_club_grid]`).
 
 ### Sidebar Details Not Loading
 - Ensure the `ccn_get_club_details` AJAX action is working correctly. Check your browser's network tab for failed AJAX requests.

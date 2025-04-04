@@ -1,0 +1,133 @@
+/**
+ * City Club Network - Search Bar CSS
+ *
+ * @package    City_Club_Network
+ * @version    1.4.0
+ */
+
+.ccn-search-bar-container {
+    background-color: #3b4a9a; /* Dark blue background */
+    padding: 25px 30px;
+    border-radius: 16px; /* Rounded corners */
+    margin: 30px auto;
+    max-width: 800px; /* Adjust max-width as needed */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.ccn-search-bar-form {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Space between elements */
+}
+
+.ccn-search-input-wrapper {
+    flex-grow: 1; /* Take up available space */
+    position: relative;
+}
+
+.ccn-search-icon {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%233182ce' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'%3E%3C/line%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.8;
+}
+
+.ccn-search-input {
+    width: 100%;
+    padding: 15px 20px 15px 50px; /* Adjust padding for icon */
+    border: none;
+    border-radius: 12px; /* Rounded corners */
+    font-size: 16px;
+    color: #4a5568;
+    background-color: #fff;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
+    box-sizing: border-box;
+}
+
+.ccn-search-input::placeholder {
+    color: #a0aec0;
+}
+
+.ccn-search-select-wrapper {
+    min-width: 180px; /* Minimum width for select */
+}
+
+.ccn-facility-select {
+    width: 100%;
+    padding: 15px 40px 15px 20px; /* Adjust padding for arrow */
+    border: none;
+    border-radius: 12px; /* Rounded corners */
+    font-size: 16px;
+    color: #4a5568;
+    background-color: #fff;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23a0aec0' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708zm12.708 6.708a.5.5 0 0 1-.708 0L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708z'/%3E%3C/svg%3E");
+    background-position: right 15px center;
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.ccn-search-submit-button {
+    padding: 15px 35px;
+    background-color: #FF6B00; /* Orange background */
+    color: #fff;
+    border: none;
+    border-radius: 12px; /* Rounded corners */
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+
+.ccn-search-submit-button:hover {
+    background-color: #dd6b20; /* Darker orange on hover */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .ccn-search-bar-form {
+        flex-direction: column;
+        align-items: stretch; /* Make items full width */
+    }
+    .ccn-search-select-wrapper {
+        min-width: auto; /* Remove min-width */
+    }
+    .ccn-search-submit-button {
+        padding: 15px 25px; /* Adjust padding */
+    }
+}
+
+@media (max-width: 480px) {
+    .ccn-search-bar-container {
+        padding: 20px;
+        border-radius: 12px;
+    }
+    .ccn-search-input {
+        font-size: 15px;
+        padding: 12px 15px 12px 45px;
+    }
+    .ccn-facility-select {
+        font-size: 15px;
+        padding: 12px 35px 12px 15px;
+    }
+    .ccn-search-submit-button {
+        font-size: 15px;
+        padding: 12px 20px;
+    }
+    .ccn-search-icon {
+        left: 15px;
+        width: 18px;
+        height: 18px;
+    }
+}

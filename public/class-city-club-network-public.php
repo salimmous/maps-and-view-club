@@ -46,8 +46,14 @@ class City_Club_Network_Public {
         $this->plugin_name = $plugin_name;
         $this->version = $version;
 
-        // Initialize the shortcodes (which also handles data retrieval for templates)
+        // Initialize the main shortcodes (which also handles data retrieval for templates)
         $this->shortcodes = new City_Club_Network_Shortcodes($this->plugin_name, $this->version);
+
+        // Initialize grid-only shortcode
+        $plugin_grid_shortcode = new City_Club_Network_Grid_Shortcode($this->plugin_name, $this->version, $this->shortcodes);
+
+        // Initialize search bar shortcode
+        $plugin_search_shortcode = new City_Club_Network_Search_Shortcode($this->plugin_name, $this->version, $this->shortcodes); // Added
 
         // Add AJAX handler for modal
         add_action('wp_ajax_ccn_get_club_details', array($this, 'ccn_get_club_details_ajax_handler'));
@@ -90,6 +96,24 @@ class City_Club_Network_Public {
             'all'
         );
 
+        // Grid-only CSS - Register always, enqueue conditionally
+        wp_register_style(
+            $this->plugin_name . '-grid-only',
+            CCN_PLUGIN_URL . 'public/css/city-club-network-grid-only.css',
+            array($this->plugin_name),
+            $this->version,
+            'all'
+        );
+
+        // Search Bar CSS - Register always, enqueue conditionally
+        wp_register_style(
+            $this->plugin_name . '-search-bar',
+            CCN_PLUGIN_URL . 'public/css/city-club-network-search-bar.css',
+            array(), // No dependency on main style needed
+            $this->version,
+            'all'
+        );
+
         // Potentially add inline styles for colors from settings
         // $this->add_inline_color_styles();
     }
@@ -104,6 +128,15 @@ class City_Club_Network_Public {
         wp_enqueue_script(
             $this->plugin_name,
             CCN_PLUGIN_URL . 'public/js/city-club-network-public.js',
+            array('jquery'),
+            $this->version,
+            true
+        );
+
+        // Grid-only script (Register only, enqueue when needed by grid-only shortcode)
+        wp_register_script(
+            $this->plugin_name . '-grid-only',
+            CCN_PLUGIN_URL . 'public/js/city-club-network-grid-only.js',
             array('jquery'),
             $this->version,
             true
@@ -162,7 +195,7 @@ class City_Club_Network_Public {
                 'plugin_url' => CCN_PLUGIN_URL,
                 'google_maps_api_key_present' => !empty($api_key), // Let JS know if API key exists
                 'text' => array( // Get customized text from settings with defaults
-                    'loading_map' => __('Loading Map View...', 'city-club-network'),
+                    'loadingmap' => __('Loading Map View...', 'city-club-network'),
                     'map_load_error' => __('Could not load map view. Please try again.', 'city-club-network'),
                 ),
                 // Modal-specific data can still be localized separately if preferred,

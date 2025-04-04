@@ -128,20 +128,8 @@ $initial_view = isset($atts['view']) ? $atts['view'] : 'grid';
                             <?php if (!empty($club['thumbnail'])) : ?>
                                 <img src="<?php echo esc_url($club['thumbnail']); ?>" alt="<?php echo esc_attr($club['title']); ?>" loading="lazy">
                             <?php else : ?>
-                                 <img src="<?php echo esc_url(CCN_PLUGIN_URL . 'public/images/default-club-image.jpg'); ?>" alt="<?php echo esc_attr($club['title']); ?>" loading="lazy">
+                                <img src="<?php echo esc_url(CCN_PLUGIN_URL . 'public/images/default-club-image.jpg'); ?>" alt="<?php echo esc_attr($club['title']); ?>" loading="lazy">
                             <?php endif; ?>
-
-                            <div class="ccn-club-image-overlay">
-                                <h3 class="ccn-club-title">
-                                    <a href="#" class="ccn-view-details-button" data-club-id="<?php echo esc_attr($club['id']); ?>"><?php echo esc_html($club['title']); ?></a>
-                                </h3>
-                                <?php if (!empty($club['address'])) : ?>
-                                    <div class="ccn-club-address">
-                                        <i class="ccn-location-icon"></i> <!-- Location icon via CSS -->
-                                        <span><?php echo esc_html($club['address']); ?></span>
-                                    </div>
-                                <?php endif; ?>
-                            </div>
 
                             <?php if (!empty($club['is_premium'])) : ?>
                                 <div class="ccn-premium-badge">PREMIUM</div>
@@ -149,57 +137,62 @@ $initial_view = isset($atts['view']) ? $atts['view'] : 'grid';
                         </div>
 
                         <div class="ccn-club-content">
+                            <h3 class="ccn-club-title">
+                                <?php echo esc_html($club['title']); ?>
+                            </h3>
+                            
+                            <?php if (!empty($club['address'])) : ?>
+                                <div class="ccn-club-address">
+                                    <i class="ccn-location-icon"></i>
+                                    <span><?php echo esc_html($club['address']); ?></span>
+                                </div>
+                            <?php endif; ?>
+
                             <?php if (!empty($club['facilities'])) : ?>
-                                <div class="ccn-club-facilities">
-                                    <?php foreach ($club['facilities'] as $facility) : ?>
-                                        <div class="ccn-facility-item" title="<?php echo esc_attr($facility['description'] ?: $facility['name']); ?>">
-                                            <span class="ccn-facility-icon">
-                                                <?php
-                                                if (!empty($facility['icon_url'])) {
-                                                    echo '<i style="background-image: url(\'' . esc_url($facility['icon_url']) . '\');"></i>';
-                                                } else {
-                                                    $icon_slug = sanitize_title($facility['slug'] ?: 'default');
-                                                    $icon_class = 'ccn-facility-icon-' . $icon_slug;
-                                                    echo '<i class="' . esc_attr($icon_class) . '"></i>';
-                                                }
-                                                ?>
-                                            </span>
-                                            <?php echo esc_html($facility['name']); ?>
+                                <div class="ccn-premium-facilities">
+                                    <?php
+                                    $premium_facilities = array('Pool', 'Gym', 'Spa', 'Tennis');
+                                    $facility_names = array_column($club['facilities'], 'name');
+                                    foreach ($premium_facilities as $facility) :
+                                        $has_facility = in_array($facility, $facility_names);
+                                        $facility_slug = strtolower($facility);
+                                    ?>
+                                        <div class="ccn-facility-box <?php echo $has_facility ? 'active' : ''; ?>">
+                                            <i class="ccn-facility-icon-<?php echo esc_attr($facility_slug); ?>"></i>
+                                            <span><?php echo esc_html($facility); ?></span>
                                         </div>
                                     <?php endforeach; ?>
                                 </div>
                             <?php endif; ?>
 
-                            <div class="ccn-club-info-bar">
-                                <?php if (!empty($club['opening_hours'])) : ?>
-                                    <div class="ccn-club-hours">
-                                        <i class="ccn-clock-icon"></i>
-                                        <span><?php echo esc_html($club['opening_hours']); ?></span>
-                                    </div>
-                                <?php endif; ?>
+                            <?php if (!empty($club['opening_hours'])) : ?>
+                                <div class="ccn-club-hours">
+                                    <i class="ccn-clock-icon"></i>
+                                    <span><?php echo esc_html($club['opening_hours']); ?></span>
+                                </div>
+                            <?php endif; ?>
 
-                                <?php if (isset($club['rating']) && $club['rating'] > 0) : ?>
-                                    <div class="ccn-club-rating">
-                                        <span class="ccn-rating-stars" title="<?php echo esc_attr($club['rating']); ?> out of 5 stars">
-                                            <?php
-                                            $rating = floatval($club['rating']);
-                                            for ($i = 1; $i <= 5; $i++) {
-                                                if ($rating >= $i) {
-                                                    echo '<i class="ccn-star-icon filled"></i>';
-                                                } elseif ($rating > ($i - 1)) {
-                                                    if ($rating - ($i-1) >= 0.75) { echo '<i class="ccn-star-icon filled"></i>'; }
-                                                    elseif ($rating - ($i-1) >= 0.25) { echo '<i class="ccn-star-icon half-filled"></i>'; }
-                                                    else { echo '<i class="ccn-star-icon empty"></i>'; }
-                                                } else { echo '<i class="ccn-star-icon empty"></i>'; }
-                                            }
-                                            ?>
-                                        </span>
-                                        <?php if (!empty($club['reviews_count'])) : ?>
-                                            <span class="ccn-reviews-count">(<?php echo esc_html($club['reviews_count']); ?>)</span>
-                                        <?php endif; ?>
-                                    </div>
-                                <?php endif; ?>
-                            </div>
+                            <?php if (isset($club['rating']) && $club['rating'] > 0) : ?>
+                                <div class="ccn-club-rating">
+                                    <span class="ccn-rating-stars" title="<?php echo esc_attr($club['rating']); ?> out of 5 stars">
+                                        <?php
+                                        $rating = floatval($club['rating']);
+                                        for ($i = 1; $i <= 5; $i++) {
+                                            if ($rating >= $i) {
+                                                echo '<i class="ccn-star-icon filled"></i>';
+                                            } elseif ($rating > ($i - 1)) {
+                                                if ($rating - ($i-1) >= 0.75) { echo '<i class="ccn-star-icon filled"></i>'; }
+                                                elseif ($rating - ($i-1) >= 0.25) { echo '<i class="ccn-star-icon half-filled"></i>'; }
+                                                else { echo '<i class="ccn-star-icon empty"></i>'; }
+                                            } else { echo '<i class="ccn-star-icon empty"></i>'; }
+                                        }
+                                        ?>
+                                    </span>
+                                    <?php if (!empty($club['reviews_count'])) : ?>
+                                        <span class="ccn-reviews-count">(<?php echo esc_html($club['reviews_count']); ?>)</span>
+                                    <?php endif; ?>
+                                </div>
+                            <?php endif; ?>
 
                             <div class="ccn-club-actions">
                                 <a href="#" class="ccn-view-details-button" data-club-id="<?php echo esc_attr($club['id']); ?>">View Details</a>

@@ -2,7 +2,7 @@
  * City Club Network - Public CSS
  *
  * @package    City_Club_Network
- * @version    1.2.0 - Updated Card Design
+ * @version    1.1.1 - Premium Badge Position Fix
  */
 
 /* General Styles */
@@ -178,35 +178,33 @@
 /* Grid View */
 .ccn-clubs-grid {
     display: grid;
-    /* Adjust minmax for potentially wider cards if needed */
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
     margin-bottom: 40px;
 }
 
-/* --- Club Card Styles (New Design - Image 2) --- */
+/* --- Club Card Styles (Modern Design) --- */
 .ccn-club-card {
     background-color: #fff;
-    border-radius: 10px;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    border: 1px solid #e2e8f0;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #edf2f7;
     position: relative; /* Needed for absolute positioning inside */
-    display: flex; /* Use flexbox for vertical layout */
-    flex-direction: column; /* Stack image and content vertically */
 }
 
 .ccn-club-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-6px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
 }
 
 .ccn-club-card .ccn-club-image {
-    position: relative; /* Container for overlay and badge */
-    height: 220px; /* Adjust height as needed */
+    position: relative;
+    height: 280px;
     overflow: hidden;
-    display: block; /* Ensure it behaves like a block */
+    display: block;
+    border-radius: 12px;
 }
 
 .ccn-club-card .ccn-club-image img {
@@ -214,14 +212,14 @@
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s ease;
-    display: block; /* Remove potential bottom space */
+    display: block;
 }
 
 .ccn-club-card:hover .ccn-club-image img {
     transform: scale(1.05);
 }
 
-.ccn-club-card .ccn-no-image { /* Style for placeholder if no image */
+.ccn-club-card .ccn-no-image {
     width: 100%;
     height: 100%;
     background-color: #f0f4f8;
@@ -232,43 +230,40 @@
     font-size: 14px;
 }
 
-/* Image Overlay Content */
-.ccn-club-image-overlay {
+/* Club Title and Address Overlay */
+.ccn-club-card .ccn-club-overlay {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
     padding: 20px;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0) 100%); /* Stronger gradient */
-    color: #fff;
-    z-index: 5;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));
+    color: white;
 }
 
 .ccn-club-card .ccn-club-title {
-    font-size: 20px; /* Adjust as needed */
+    font-size: 24px;
     font-weight: 700;
-    margin: 0 0 6px 0;
-    color: #fff; /* White text on overlay */
-    line-height: 1.3;
+    margin: 0 0 8px 0;
+    color: white;
+    line-height: 1.2;
 }
-.ccn-club-card .ccn-club-title a { /* If title is a link */
+
+.ccn-club-card .ccn-club-title a {
     color: inherit;
     text-decoration: none;
-}
-.ccn-club-card .ccn-club-title a:hover {
-    text-decoration: underline;
 }
 
 .ccn-club-card .ccn-club-address {
     display: flex;
     align-items: center;
     font-size: 14px;
-    color: #e2e8f0; /* Lighter white/gray */
+    color: rgba(255,255,255,0.9);
     margin: 0;
     line-height: 1.4;
 }
 
-.ccn-club-card .ccn-location-icon { /* Location icon in overlay */
+.ccn-club-card .ccn-location-icon { /* Location icon */
     display: inline-block;
     width: 14px;
     height: 14px;
@@ -276,132 +271,46 @@
     background-size: contain;
     background-repeat: no-repeat;
     margin-right: 8px;
-    opacity: 0.8;
-    filter: brightness(0) invert(1); /* Make icon white */
+    opacity: 0.7;
 }
 
-/* Premium badge */
 .ccn-club-card .ccn-premium-badge {
     position: absolute;
     top: 15px;
-    right: 15px;
+    left: 15px; /* Changed from right to left */
     background-color: #FF6B00; /* Orange color */
     color: white;
     font-weight: bold;
-    padding: 5px 15px;
-    border-radius: 20px; /* Pill shape */
-    font-size: 13px;
+    padding: 6px 16px;
+    border-radius: 4px; /* Changed from pill to slightly rounded */
+    font-size: 12px;
     z-index: 10;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-/* Content Below Image */
-.ccn-club-card .ccn-club-content {
-    padding: 20px;
-    flex-grow: 1; /* Allow content to fill remaining space */
-    display: flex;
-    flex-direction: column; /* Stack content vertically */
-}
-
-/* Facilities styling (Pills) */
-.ccn-club-card .ccn-club-facilities {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin: 0 0 15px 0; /* Margin below facilities */
-    padding: 0; /* Reset list padding if it's a ul */
-    list-style: none; /* Reset list style */
-}
-
-.ccn-club-card .ccn-facility-item { /* Style for each pill */
-    display: inline-flex; /* Use inline-flex */
-    align-items: center;
-    background-color: #edf2f7; /* Light gray background */
-    border-radius: 15px; /* Pill shape */
-    padding: 5px 12px;
-    font-size: 13px;
-    color: #4a5568; /* Gray text */
-    line-height: 1; /* Ensure consistent height */
-}
-
-.ccn-club-card .ccn-facility-icon { /* Container for the icon */
-    margin-right: 6px;
-    width: 16px;
-    height: 16px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0.7;
-}
-.ccn-club-card .ccn-facility-icon i { /* The actual icon element (e.g., <i> or <span>) */
-    display: inline-block;
-    width: 100%;
-    height: 100%;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-/* Specific Facility Icons (Add classes in PHP based on term slug/name) */
-/* Ensure these images exist in public/images/ */
-.ccn-facility-icon .pool-icon { background-image: url('../images/pool-icon.svg'); }
-.ccn-facility-icon .gym-icon { background-image: url('../images/gym-icon.svg'); }
-.ccn-facility-icon .spa-icon { background-image: url('../images/spa-icon.svg'); } /* Example */
-.ccn-facility-icon .tennis-icon { background-image: url('../images/tennis-icon.svg'); } /* Example */
-.ccn-facility-icon .group-classes-icon { background-image: url('../images/group-classes-icon.svg'); } /* Example */
-.ccn-facility-icon .cardio-area-icon { background-image: url('../images/cardio-icon.svg'); } /* Example */
-.ccn-facility-icon .yoga-studio-icon { background-image: url('../images/yoga-icon.svg'); } /* Example */
-.ccn-facility-icon .sauna-icon { background-image: url('../images/sauna-icon.svg'); } /* Example */
-.ccn-facility-icon .default-icon { background-image: url('../images/default-facility-icon.svg'); } /* Fallback */
-
-
-/* Info Bar (Hours & Rating) */
-.ccn-club-card .ccn-club-info-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 0 20px 0; /* Margin below info bar */
-    font-size: 14px;
-    color: #718096; /* Gray text */
-    padding-top: 15px; /* Add space above if needed */
-    border-top: 1px solid #f0f4f8; /* Very light separator */
-}
-
-.ccn-club-card .ccn-club-hours {
-    display: flex;
-    align-items: center;
-}
-
-.ccn-club-card .ccn-clock-icon { /* Clock icon */
-    display: inline-block;
-    width: 14px;
-    height: 14px;
-    background-image: url('../images/clock-icon.svg');
-    background-size: contain;
-    background-repeat: no-repeat;
-    margin-right: 8px;
-    opacity: 0.7;
+    letter-spacing: 0.8px;
 }
 
 .ccn-club-card .ccn-club-rating {
-    display: flex;
+    display: inline-flex;
     align-items: center;
+    font-size: 16px;
+    color: #2d3748;
+    padding: 8px 0;
 }
 
 .ccn-club-card .ccn-rating-stars {
     display: inline-flex; /* Use flex for alignment */
-    margin-right: 8px;
+    margin-right: 10px;
     line-height: 1; /* Prevent extra space */
 }
 
 .ccn-club-card .ccn-star-icon { /* Individual star icon */
     display: inline-block;
-    width: 16px;
-    height: 16px;
+    width: 18px; /* Slightly larger */
+    height: 18px;
     background-size: contain;
     background-repeat: no-repeat;
-    margin-right: 3px; /* Space between stars */
+    margin-right: 2px; /* Tighter spacing between stars */
 }
 .ccn-club-card .ccn-star-icon:last-child {
     margin-right: 0;
@@ -409,68 +318,54 @@
 
 .ccn-club-card .ccn-star-icon.empty {
     background-image: url('../images/star-empty.svg');
-    opacity: 0.5;
+    opacity: 0.4;
 }
 .ccn-club-card .ccn-star-icon.filled {
     background-image: url('../images/star-filled.svg');
+    filter: brightness(1.1); /* Make stars slightly brighter */
 }
 .ccn-club-card .ccn-star-icon.half-filled {
     background-image: url('../images/star-half.svg');
+    filter: brightness(1.1); /* Make stars slightly brighter */
 }
 
-.ccn-club-card .ccn-reviews-count {
-    color: #718096;
-    font-size: 14px;
-    margin-left: 5px; /* Space after stars */
-}
-
-/* Action Buttons */
 .ccn-club-card .ccn-club-actions {
     display: flex;
-    gap: 10px; /* Space between buttons */
-    margin-top: auto; /* Push buttons to the bottom */
-    padding-top: 10px; /* Add some space above buttons if needed */
-}
-
-.ccn-club-card .ccn-view-details-button,
-.ccn-club-card .ccn-get-directions-button {
-    flex: 1; /* Make buttons equal width */
-    padding: 12px 15px;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 600;
-    border-radius: 6px;
-    transition: all 0.2s ease-in-out;
-    text-align: center;
-    border: 1px solid transparent; /* Base border */
-    cursor: pointer;
-    display: inline-flex; /* Ensure alignment if icons are added */
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
+    margin-top: 20px;
 }
 
-/* View Details button (Blue) */
-.ccn-club-card .ccn-view-details-button {
+.ccn-club-card .ccn-club-actions .ccn-view-details {
+    padding: 10px 20px;
     background-color: #3182ce;
     color: #fff;
-    border-color: #3182ce;
-}
-.ccn-club-card .ccn-view-details-button:hover {
-    background-color: #2b6cb0;
-    border-color: #2b6cb0;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.2s ease-in-out;
 }
 
-/* Get Directions button (Orange Outline) */
-.ccn-club-card .ccn-get-directions-button {
-    background-color: #fff;
-    color: #FF6B00; /* Orange text */
-    border: 1px solid #FF6B00; /* Orange border */
+.ccn-club-card .ccn-club-actions .ccn-view-details:hover {
+    background-color: #2b6cb0;
 }
-.ccn-club-card .ccn-get-directions-button:hover {
-    background-color: #FFF5EB; /* Very light orange background */
-    border-color: #dd6b20; /* Darker orange border */
-    color: #dd6b20; /* Darker orange text */
+
+.ccn-club-card .ccn-club-actions .ccn-get-directions {
+    padding: 10px 20px;
+    background-color: transparent;
+    color: #FF6B00;
+    border: 2px solid #FF6B00;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
+
+.ccn-club-card .ccn-club-actions .ccn-get-directions:hover {
+    background-color: #FF6B00;
+    color: #fff;
+}
+
 /* --- End Club Card Styles --- */
 
 
@@ -499,11 +394,18 @@
     .ccn-filter-label { margin-bottom: 15px; margin-right: 0; }
     .ccn-filter-selects { flex-direction: column; width: 100%; margin: 0 0 15px 0; gap: 10px; margin-left: 0; margin-right: 0; }
     .ccn-apply-filters-button { width: 100%; justify-content: center; }
-    .ccn-clubs-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; } /* Adjust grid for tablets */
+}
+
+@media (max-width: 1200px) {
+    .ccn-clubs-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+}
+
+@media (max-width: 992px) {
+    .ccn-clubs-grid { grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 15px; }
 }
 
 @media (max-width: 768px) {
-    .ccn-clubs-grid { grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 20px; } /* Keep slightly larger min width for better layout */
+    .ccn-clubs-grid { grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 20px; }
     .ccn-title { font-size: 28px; }
     .ccn-view-toggle { margin-top: 15px; margin-bottom: 25px; }
     .ccn-club-card .ccn-club-title { font-size: 18px; }
@@ -512,14 +414,14 @@
 
 @media (max-width: 480px) {
     .ccn-container { margin: 20px auto; padding: 15px; }
-    .ccn-clubs-grid { grid-template-columns: 1fr; gap: 20px; } /* Single column on small screens */
+    .ccn-clubs-grid { grid-template-columns: 1fr; gap: 20px; }
     .ccn-filter-container { padding: 15px; }
     .ccn-apply-filters-button { padding: 10px 20px; }
     .ccn-club-card .ccn-club-content { padding: 15px; }
     .ccn-club-card .ccn-club-title { font-size: 17px; }
-    .ccn-club-card .ccn-club-address { font-size: 13px; }
-    .ccn-club-card .ccn-facility-item { font-size: 12px; padding: 4px 10px; }
-    .ccn-club-card .ccn-club-info-bar { flex-direction: column; align-items: flex-start; gap: 8px; margin-bottom: 15px; padding-top: 10px; }
-    .ccn-club-card .ccn-club-actions { flex-direction: column; }
+     .ccn-club-card .ccn-club-address { font-size: 13px; }
+     .ccn-club-card .ccn-facility-item { font-size: 12px; padding: 4px 10px; }
+     .ccn-club-card .ccn-club-info-bar { flex-direction: column; align-items: flex-start; gap: 8px; margin-bottom: 15px; padding-top: 10px; }
+     .ccn-club-card .ccn-club-actions { flex-direction: column; }
     .ccn-pagination a, .ccn-pagination span { width: 32px; height: 32px; font-size: 13px; }
 }

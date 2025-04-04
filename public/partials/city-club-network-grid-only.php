@@ -1,6 +1,7 @@
 <?php
 /**
  * Template for displaying the City Club Network in grid-only view with filters.
+ * Updated structure to move title/address below image.
  *
  * @since      1.0.0
  * @package    City_Club_Network
@@ -103,13 +104,15 @@ if (!isset($clubs_paged) || !isset($available_filters)) {
                             <?php if (!empty($club['is_premium'])) : ?>
                                 <div class="ccn-premium-badge">PREMIUM</div>
                             <?php endif; ?>
+
+                            <!-- Overlay Removed -->
                         </div>
 
                         <div class="ccn-club-content">
+                             <!-- Title and Address Moved Here -->
                             <h3 class="ccn-club-title">
                                 <?php echo esc_html($club['title']); ?>
                             </h3>
-                            
                             <?php if (!empty($club['address'])) : ?>
                                 <div class="ccn-club-address">
                                     <i class="ccn-location-icon"></i>
@@ -117,67 +120,81 @@ if (!isset($clubs_paged) || !isset($available_filters)) {
                                 </div>
                             <?php endif; ?>
 
+                            <!-- Facility Tags -->
                             <?php if (!empty($club['facilities'])) : ?>
                                 <div class="ccn-club-facilities">
                                     <?php foreach ($club['facilities'] as $facility) : ?>
-                                        <div class="ccn-facility-item" title="<?php echo esc_attr($facility['description'] ?: $facility['name']); ?>">
-                                            <span class="ccn-facility-icon">
-                                                <?php
-                                                if (!empty($facility['icon_url'])) {
-                                                    echo '<i style="background-image: url(\'' . esc_url($facility['icon_url']) . '\');"></i>';
-                                                } else {
-                                                    $icon_slug = sanitize_title($facility['slug'] ?: 'default');
-                                                    $icon_class = $icon_slug . '-icon';
-                                                    echo '<i class="' . esc_attr($icon_class) . '"></i>';
-                                                }
-                                                ?>
-                                            </span>
-                                            <?php echo esc_html($facility['name']); ?>
+                                        <div class="ccn-facility-tag" title="<?php echo esc_attr($facility['description'] ?: $facility['name']); ?>">
+                                            <?php
+                                            // Attempt to generate icon class based on slug or use provided URL
+                                            $icon_html = '';
+                                            if (!empty($facility['icon_url'])) {
+                                                $icon_html = '<i class="ccn-facility-icon" style="background-image: url(\'' . esc_url($facility['icon_url']) . '\');"></i>';
+                                            } else {
+                                                $icon_slug = sanitize_title($facility['slug'] ?: 'default');
+                                                $icon_class = 'ccn-facility-icon-' . $icon_slug; // e.g., ccn-facility-icon-pool
+                                                $icon_html = '<i class="ccn-facility-icon ' . esc_attr($icon_class) . '"></i>';
+                                            }
+                                            echo $icon_html; // Output the icon
+                                            ?>
+                                            <span><?php echo esc_html($facility['name']); ?></span>
                                         </div>
                                     <?php endforeach; ?>
                                 </div>
                             <?php endif; ?>
 
-                            <?php if (!empty($club['opening_hours'])) : ?>
-                                <div class="ccn-club-hours">
-                                    <i class="ccn-clock-icon"></i>
-                                    <span><?php echo esc_html($club['opening_hours']); ?></span>
-                                </div>
-                            <?php endif; ?>
-
-                            <?php if (isset($club['rating']) && $club['rating'] > 0) : ?>
-                                <div class="ccn-club-rating">
-                                    <span class="ccn-rating-stars" title="<?php echo esc_attr($club['rating']); ?> out of 5 stars">
-                                        <?php
-                                        $rating = floatval($club['rating']);
-                                        for ($i = 1; $i <= 5; $i++) {
-                                            if ($rating >= $i) {
-                                                echo '<i class="ccn-star-icon filled"></i>';
-                                            } elseif ($rating > ($i - 1)) {
-                                                if ($rating - ($i-1) >= 0.75) { echo '<i class="ccn-star-icon filled"></i>'; }
-                                                elseif ($rating - ($i-1) >= 0.25) { echo '<i class="ccn-star-icon half-filled"></i>'; }
-                                                else { echo '<i class="ccn-star-icon empty"></i>'; }
-                                            } else { echo '<i class="ccn-star-icon empty"></i>'; }
-                                        }
-                                        ?>
-                                    </span>
-                                    <?php if (!empty($club['reviews_count'])) : ?>
-                                        <span class="ccn-reviews-count">(<?php echo esc_html($club['reviews_count']); ?>)</span>
-                                    <?php endif; ?>
-                                </div>
-                            <?php endif; ?>
-
-                            <div class="ccn-club-actions">
-                                <?php if (!empty($club['permalink'])) : ?>
-                                    <a href="<?php echo esc_url($club['permalink']); ?>" class="ccn-view-details-button">
-                                        View Details
-                                    </a>
+                            <!-- Info Bar (Hours & Rating) -->
+                            <div class="ccn-club-info-bar">
+                                <?php if (!empty($club['hours']['mf'])) : // Display first available hour string ?>
+                                    <div class="ccn-club-hours">
+                                        <i class="ccn-clock-icon"></i>
+                                        <span><?php echo esc_html($club['hours']['mf']); ?></span>
+                                    </div>
+                                <?php elseif (!empty($club['hours']['sat'])) : ?>
+                                     <div class="ccn-club-hours">
+                                        <i class="ccn-clock-icon"></i>
+                                        <span><?php echo esc_html($club['hours']['sat']); ?></span>
+                                    </div>
+                                <?php elseif (!empty($club['hours']['sun'])) : ?>
+                                     <div class="ccn-club-hours">
+                                        <i class="ccn-clock-icon"></i>
+                                        <span><?php echo esc_html($club['hours']['sun']); ?></span>
+                                    </div>
+                                <?php else: ?>
+                                    <div class="ccn-club-hours"></div> <?php // Empty div for spacing ?>
                                 <?php endif; ?>
-                                
-                                <?php if (!empty($club['latitude']) && !empty($club['longitude'])) : ?>
-                                    <a href="https://www.google.com/maps/dir/?api=1&destination=<?php echo esc_attr($club['latitude']); ?>,<?php echo esc_attr($club['longitude']); ?>" target="_blank" class="ccn-get-directions-button">
-                                        Get Directions
-                                    </a>
+
+
+                                <?php if (isset($club['rating']) && $club['rating'] > 0) : ?>
+                                    <div class="ccn-club-rating">
+                                        <i class="ccn-star-icon filled"></i>
+                                        <span class="ccn-rating-value"><?php echo esc_html(number_format((float)$club['rating'], 1)); ?></span>
+                                        <?php if (!empty($club['reviews_count'])) : ?>
+                                            <span class="ccn-reviews-count">(<?php echo esc_html($club['reviews_count']); ?> reviews)</span>
+                                        <?php endif; ?>
+                                    </div>
+                                <?php else: ?>
+                                     <div class="ccn-club-rating"></div> <?php // Empty div for spacing ?>
+                                <?php endif; ?>
+                            </div>
+
+                            <!-- Action Buttons -->
+                            <div class="ccn-club-actions">
+                                <a href="#" class="ccn-view-details-button" data-club-id="<?php echo esc_attr($club['id']); ?>">
+                                    View Details
+                                </a>
+                                <?php
+                                $directions_url = '#';
+                                if (!empty($club['latitude']) && !empty($club['longitude'])) {
+                                    $directions_url = 'https://www.google.com/maps/dir/?api=1&destination=' . urlencode($club['latitude'] . ',' . $club['longitude']);
+                                } elseif (!empty($club['address'])) {
+                                    $directions_url = 'https://www.google.com/maps/search/?api=1&query=' . urlencode($club['address']);
+                                }
+                                ?>
+                                <?php if ($directions_url !== '#') : ?>
+                                <a href="<?php echo esc_url($directions_url); ?>" target="_blank" rel="noopener noreferrer" class="ccn-get-directions-button">
+                                    Get Directions
+                                </a>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -187,29 +204,19 @@ if (!isset($clubs_paged) || !isset($available_filters)) {
 
             <?php if ($total_pages > 1) : ?>
                 <div class="ccn-pagination">
-                    <ul>
-                        <?php if ($current_page > 1) : ?>
-                            <li>
-                                <a href="<?php echo esc_url(add_query_arg('paged', $current_page - 1, $base_url)); ?>" class="prev">&laquo;</a>
-                            </li>
-                        <?php endif; ?>
-                        
-                        <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
-                            <li>
-                                <?php if ($i == $current_page) : ?>
-                                    <span class="current"><?php echo esc_html($i); ?></span>
-                                <?php else : ?>
-                                    <a href="<?php echo esc_url(add_query_arg('paged', $i, $base_url)); ?>"><?php echo esc_html($i); ?></a>
-                                <?php endif; ?>
-                            </li>
-                        <?php endfor; ?>
-                        
-                        <?php if ($current_page < $total_pages) : ?>
-                            <li>
-                                <a href="<?php echo esc_url(add_query_arg('paged', $current_page + 1, $base_url)); ?>" class="next">&raquo;</a>
-                            </li>
-                        <?php endif; ?>
-                    </ul>
+                    <?php
+                    // Using WordPress core pagination function for better compatibility
+                    echo paginate_links( array(
+                        'base'      => $base_url . '%_%',
+                        'format'    => (strpos($base_url, '?') ? '&' : '?') . 'paged=%#%',
+                        'current'   => max( 1, $current_page ),
+                        'total'     => $total_pages,
+                        'prev_text' => __('&laquo;'),
+                        'next_text' => __('&raquo;'),
+                        'type'      => 'list', // Output as <ul> list
+                        'add_args'  => false, // Don't add query args automatically
+                    ) );
+                    ?>
                 </div>
             <?php endif; ?>
         <?php else : ?>

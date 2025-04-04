@@ -35,34 +35,33 @@ jQuery(document).ready(function($) {
         }
     }
 
-    // --- Map Initialization/Loading ---
+    // --- Map Initialization/Loading (Optimized) ---
     function initializeOrResizeMap() {
         const mapContainerElement = $('#ccn-map'); // The actual map div inside the partial
 
         // Case 1: Map container exists and map is initialized -> Resize
         if (mapContainerElement.length > 0 && mapViewContent.data('map-initialized') && typeof ccnMapInstance !== 'undefined' && ccnMapInstance) {
-            console.log("CCN: Resizing existing map.");
             google.maps.event.trigger(ccnMapInstance, 'resize');
-            // Optional: Recenter or fit bounds if needed after resize
-            // fitBoundsToMarkers();
+            return; // Exit early after resize
         }
-        // Case 2: Map container exists but map NOT initialized (e.g., initial load was map view) -> Initialize
+        // Case 2: Map container exists but map NOT initialized -> Initialize
         else if (mapContainerElement.length > 0 && !mapViewContent.data('map-initialized')) {
-             if (typeof google !== 'undefined' && typeof google.maps !== 'undefined') {
-                 if (typeof ccn_map_config !== 'undefined') { // Check if localized data exists from initial load
-                     console.log("CCN: Initializing map from pre-loaded data.");
-                     // initMap() should be called by the Google Maps API callback=initMap
-                     // We just mark it as initialized here. If initMap hasn't run yet, it will.
-                     // If it has run, this flag prevents re-running parts of the logic.
-                     mapViewContent.data('map-initialized', true);
-                 } else {
-                     console.warn("CCN: Map container exists, but map config data missing. Attempting AJAX load.");
-                     loadMapViewAjax(); // Fallback to AJAX load if config is missing
-                 }
-             } else {
-                 console.warn("CCN: Google Maps API not ready yet.");
-                 // API script with callback=initMap should handle initialization
-             }
+            if (typeof google !== 'undefined' && typeof google.maps !== 'undefined') {
+                if (typeof ccn_map_config !== 'undefined') {
+                    // Mark as initialized immediately to prevent duplicate initialization
+                    mapViewContent.data('map-initialized', true);
+                } else {
+                    loadMapViewAjax(); // Fallback to AJAX load if config is missing
+                }
+            } else if (ccn_public_data.google_maps_api_key_present) {
+                // Load Google Maps API directly if not loaded yet
+                const script = document.createElement('script');
+                script.src = `https://maps.googleapis.com/maps/api/js?key=${ccn_public_data.google_maps_api_key}&libraries=places&callback=initMap`;
+                script.async = true;
+                script.defer = true;
+                document.head.appendChild(script);
+                mapViewContent.data('map-initialized', true); // Mark as initialized
+            }
         }
         // Case 3: Map container DOES NOT exist -> Load via AJAX
         else if (mapContainerElement.length === 0) {
@@ -70,13 +69,10 @@ jQuery(document).ready(function($) {
         }
     }
 
-    // --- AJAX Function to Load Map View ---
+    // --- AJAX Function to Load Map View (Optimized) ---
     function loadMapViewAjax() {
         if (isMapLoading) return; // Prevent simultaneous requests
         isMapLoading = true;
-
-        const loadingPlaceholder = mapViewContent.find('.ccn-map-loading-placeholder');
-        loadingPlaceholder.text(ccn_public_data.text?.loading_map || 'Loading Map View...').show();
 
         // Get current filter values for the AJAX request
         const filters = {
@@ -87,64 +83,54 @@ jQuery(document).ready(function($) {
 
         $.ajax({
             url: ccn_public_data.ajax_url,
-            type: 'POST', // Use POST for potentially longer filter data
+            type: 'POST',
             data: {
                 action: 'ccn_load_map_view',
                 nonce: ccn_public_data.map_nonce,
-                ...filters // Spread filter values into data
+                ...filters
             },
             dataType: 'json',
             success: function(response) {
                 if (response.success && response.data.html && response.data.map_config) {
-                    console.log("CCN: Map view loaded via AJAX.");
-                    mapViewContent.html(response.data.html); // Inject the map partial HTML
-
+                    // Remove loading text before injecting HTML
+                    mapViewContent.find('.ccn-map-loading-text').remove();
+                    
+                    // Inject the map partial HTML
+                    mapViewContent.html(response.data.html);
+                    
+                    // Remove loading indicators immediately
+                    mapViewContent.find('.ccn-map-loading-text').remove();
+                    mapViewContent.find('.ccn-map-list-loading').remove();
+                    
                     // Make map config data available globally for initMap
-                    // This assumes initMap will look for this global variable.
                     window.ccn_map_config = response.data.map_config;
 
-                    // Check if Google Maps API is loaded. If yes, initMap should be called by API callback.
-                    // If not, the API script needs to be loaded.
+                    // Load or initialize Google Maps
                     if (typeof google === 'undefined' || typeof google.maps === 'undefined') {
                         if (ccn_public_data.google_maps_api_key_present) {
-                            console.log("CCN: Google Maps API not loaded, attempting to load script...");
-                            // Dynamically load the Google Maps script if necessary
-                            // This is complex and might be better handled by ensuring it's always registered
-                            // For simplicity, we assume WP's enqueueing handles it eventually.
-                            // The callback=initMap in the registered script URL is crucial.
-                            // We might need to manually trigger initMap if the callback fails after dynamic load.
+                            // Dynamically load the Google Maps script
+                            const script = document.createElement('script');
+                            script.src = `https://maps.googleapis.com/maps/api/js?key=${ccn_public_data.google_maps_api_key}&libraries=places&callback=initMap`;
+                            script.async = true;
+                            script.defer = true;
+                            document.head.appendChild(script);
                         } else {
-                             console.error("CCN: Cannot load map, Google Maps API key missing.");
-                             $('#ccn-map').html('<p style="text-align: center; padding-top: 50px; color: red;">Map cannot be loaded. API Key missing.</p>');
+                            $('#ccn-map').html('<p style="text-align: center; padding-top: 50px; color: red;">Map cannot be loaded. API Key missing.</p>');
                         }
-                    } else {
-                         // If API is already loaded, the callback=initMap should have fired or will fire.
-                         // If it already fired BEFORE our AJAX finished, we might need to call initMap manually.
-                         // Check if map instance was created by the callback
-                         if (typeof ccnMapInstance === 'undefined') {
-                             console.log("CCN: API loaded, but map instance not found. Calling initMap manually.");
-                             // Ensure initMap is globally accessible (defined outside jQuery ready)
-                             if (typeof initMap === 'function') {
-                                 initMap();
-                             } else {
-                                 console.error("CCN: initMap function is not defined globally.");
-                             }
-                         }
+                    } else if (typeof initMap === 'function' && typeof ccnMapInstance === 'undefined') {
+                        // Call initMap directly if API is loaded but map not initialized
+                        initMap();
                     }
-                    mapViewContent.data('map-initialized', true); // Mark as initialized
-                } else {
-                    console.error("CCN AJAX Error (Load Map View):", response.data?.message || 'Unknown error');
-                    loadingPlaceholder.text(ccn_public_data.text?.map_load_error || 'Error loading map.');
+                    
+                    mapViewContent.data('map-initialized', true);
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.error("CCN AJAX Network Error (Load Map View):", textStatus, errorThrown);
-                loadingPlaceholder.text(ccn_public_data.text?.map_load_error || 'Error loading map.');
+            error: function() {
+                // Simplified error handling
+                $('#ccn-map').html('<p style="text-align: center; padding-top: 50px; color: red;">Error loading map. Please try again.</p>');
             },
             complete: function() {
                 isMapLoading = false;
-                // Placeholder might be removed by successful HTML injection, or hide it on error
-                // loadingPlaceholder.hide();
             }
         });
     }

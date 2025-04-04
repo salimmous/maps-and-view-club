@@ -158,7 +158,7 @@ jQuery(document).ready(function($) {
      */
     function clearModalContent() {
         // Clear Header
-        $('.ccn-modal-title').text('');
+        $('.ccn-modal-title').html(''); // Use .html('') to clear
         $('.ccn-modal-address span').text('');
         $('.ccn-modal-header-image').attr('src', '').attr('alt', '');
         $('.ccn-modal-premium-badge').hide();
@@ -202,7 +202,7 @@ jQuery(document).ready(function($) {
         clearModalContent(); // Clear previous data first
 
         // --- Populate Header ---
-        $('.ccn-modal-title').text(clubData.title || 'Club Details');
+        $('.ccn-modal-title').html(clubData.title || 'Club Details'); // Use .html() to decode entities
         $('.ccn-modal-address span').text(clubData.address || 'Address not available');
         $('.ccn-modal-header-image')
             .attr('src', clubData.thumbnail || ccn_data.default_image || '') // Add fallback for default image

@@ -126,7 +126,7 @@ class City_Club_Network_Post_Types {
 
         $args = array(
             'label'                 => __('City Club', 'city-club-network'),
-            'description'           => __('Fitness clubs across Morocco', 'city-club-network'),
+            'description'           => __('Premium fitness clubs across Morocco', 'city-club-network'),
             'labels'                => $labels,
             'supports'              => array('title', 'editor', 'thumbnail', 'custom-fields'),
             'hierarchical'          => false,
@@ -134,7 +134,7 @@ class City_Club_Network_Post_Types {
             'show_ui'               => true,
             'show_in_menu'          => true,
             'menu_position'         => 5,
-            'menu_icon'             => 'dashicons-location-alt', // Updated icon
+            'menu_icon'             => 'dashicons-star-filled', // Updated icon for premium status
             'show_in_admin_bar'     => true,
             'show_in_nav_menus'     => true,
             'can_export'            => true,
@@ -190,28 +190,28 @@ class City_Club_Network_Post_Types {
         );
         register_taxonomy('city', array('city_club'), $city_args);
 
-        // Register Facilities taxonomy (No changes needed here for registration itself)
+        // Register Facilities taxonomy with premium facilities
         $facility_labels = array(
-            'name'                       => _x('Facilities', 'Taxonomy General Name', 'city-club-network'),
-            'singular_name'              => _x('Facility', 'Taxonomy Singular Name', 'city-club-network'),
-            'menu_name'                  => __('Facilities', 'city-club-network'),
-            'all_items'                  => __('All Facilities', 'city-club-network'),
+            'name'                       => _x('Premium Facilities', 'Taxonomy General Name', 'city-club-network'),
+            'singular_name'              => _x('Premium Facility', 'Taxonomy Singular Name', 'city-club-network'),
+            'menu_name'                  => __('Premium Facilities', 'city-club-network'),
+            'all_items'                  => __('All Premium Facilities', 'city-club-network'),
             'parent_item'                => __('Parent Facility', 'city-club-network'),
             'parent_item_colon'          => __('Parent Facility:', 'city-club-network'),
-            'new_item_name'              => __('New Facility Name', 'city-club-network'),
-            'add_new_item'               => __('Add New Facility', 'city-club-network'),
-            'edit_item'                  => __('Edit Facility', 'city-club-network'),
-            'update_item'                => __('Update Facility', 'city-club-network'),
-            'view_item'                  => __('View Facility', 'city-club-network'),
-            'separate_items_with_commas' => __('Separate facilities with commas', 'city-club-network'),
-            'add_or_remove_items'        => __('Add or remove facilities', 'city-club-network'),
-            'choose_from_most_used'      => __('Choose from the most used', 'city-club-network'),
-            'popular_items'              => __('Popular Facilities', 'city-club-network'),
-            'search_items'               => __('Search Facilities', 'city-club-network'),
-            'not_found'                  => __('Not Found', 'city-club-network'),
-            'no_terms'                   => __('No facilities', 'city-club-network'),
-            'items_list'                 => __('Facilities list', 'city-club-network'),
-            'items_list_navigation'      => __('Facilities list navigation', 'city-club-network'),
+            'new_item_name'              => __('New Premium Facility', 'city-club-network'),
+            'add_new_item'               => __('Add New Premium Facility', 'city-club-network'),
+            'edit_item'                  => __('Edit Premium Facility', 'city-club-network'),
+            'update_item'                => __('Update Premium Facility', 'city-club-network'),
+            'view_item'                  => __('View Premium Facility', 'city-club-network'),
+            'separate_items_with_commas' => __('Separate premium facilities with commas', 'city-club-network'),
+            'add_or_remove_items'        => __('Add or remove premium facilities', 'city-club-network'),
+            'choose_from_most_used'      => __('Choose from the most used premium facilities', 'city-club-network'),
+            'popular_items'              => __('Popular Premium Facilities', 'city-club-network'),
+            'search_items'               => __('Search Premium Facilities', 'city-club-network'),
+            'not_found'                  => __('No Premium Facilities Found', 'city-club-network'),
+            'no_terms'                   => __('No premium facilities', 'city-club-network'),
+            'items_list'                 => __('Premium Facilities list', 'city-club-network'),
+            'items_list_navigation'      => __('Premium Facilities list navigation', 'city-club-network'),
         );
         $facility_args = array(
             'labels'                     => $facility_labels,
@@ -317,17 +317,20 @@ class City_Club_Network_Post_Types {
 
         // Get the saved values
         $address = get_post_meta($post->ID, '_club_address', true);
-        // $opening_hours = get_post_meta($post->ID, '_club_opening_hours', true); // Deprecated, use specific days
-        $hours_mf = get_post_meta($post->ID, '_club_hours_mf', true);
-        $hours_sat = get_post_meta($post->ID, '_club_hours_sat', true);
-        $hours_sun = get_post_meta($post->ID, '_club_hours_sun', true);
-        $rating = get_post_meta($post->ID, '_club_rating', true);
-        $reviews_count = get_post_meta($post->ID, '_club_reviews_count', true);
-        $is_premium = get_post_meta($post->ID, '_club_is_premium', true);
+        $hours_mf = get_post_meta($post->ID, '_club_hours_mf', true) ?: '6:00 AM - 10:00 PM';
+        $hours_sat = get_post_meta($post->ID, '_club_hours_sat', true) ?: '6:00 AM - 10:00 PM';
+        $hours_sun = get_post_meta($post->ID, '_club_hours_sun', true) ?: '6:00 AM - 10:00 PM';
+        $rating = get_post_meta($post->ID, '_club_rating', true) ?: '4.8';
+        $reviews_count = get_post_meta($post->ID, '_club_reviews_count', true) ?: '120';
+        $is_premium = get_post_meta($post->ID, '_club_is_premium', true) ?: '1';
         $contact_phone = get_post_meta($post->ID, '_club_contact_phone', true);
         $contact_email = get_post_meta($post->ID, '_club_contact_email', true);
         $contact_website = get_post_meta($post->ID, '_club_contact_website', true);
         $book_tour_url = get_post_meta($post->ID, '_club_book_tour_url', true);
+        
+        // Get premium facilities
+        $facilities = array('Pool', 'Gym', 'Spa', 'Tennis');
+        $selected_facilities = wp_get_object_terms($post->ID, 'facility', array('fields' => 'names'));
 
         ?>
         <div class="city-club-meta-box">
@@ -605,6 +608,24 @@ class City_Club_Network_Post_Types {
      */
     public function add_facility_taxonomy_fields($taxonomy) {
         ?>
+        <div class="form-field term-name-wrap">
+            <label for="tag-name"><?php _e('Name', 'city-club-network'); ?></label>
+            <input type="text" name="tag-name" id="tag-name" value="" class="widefat" onchange="checkExistingFacility(this.value)"/>
+            <div id="facility-exists-notice" style="color: red; display: none;">
+                <?php _e('This facility already exists!', 'city-club-network'); ?>
+            </div>
+            <script>
+            function checkExistingFacility(value) {
+                var existingFacilities = <?php echo json_encode(get_terms(array('taxonomy' => 'facility', 'hide_empty' => false, 'fields' => 'names'))); ?>;
+                var notice = document.getElementById('facility-exists-notice');
+                if (existingFacilities.includes(value)) {
+                    notice.style.display = 'block';
+                } else {
+                    notice.style.display = 'none';
+                }
+            }
+            </script>
+        </div>
         <div class="form-field term-icon-url-wrap">
             <label for="facility_icon_url"><?php _e('Icon URL', 'city-club-network'); ?></label>
             <input type="url" name="facility_icon_url" id="facility_icon_url" value="" class="widefat"/>

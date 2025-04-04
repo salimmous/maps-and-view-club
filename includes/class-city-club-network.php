@@ -75,6 +75,12 @@ class City_Club_Network {
         // The class responsible for handling the shortcodes
         require_once CCN_PLUGIN_DIR . 'includes/class-city-club-network-shortcodes.php';
 
+        // The class responsible for handling the grid-only shortcode
+        require_once CCN_PLUGIN_DIR . 'includes/class-city-club-network-grid-shortcode.php';
+
+        // The class responsible for handling the search bar shortcode
+        require_once CCN_PLUGIN_DIR . 'includes/class-city-club-network-search-shortcode.php'; // Added search shortcode class
+
         $this->loader = new City_Club_Network_Loader();
     }
 
